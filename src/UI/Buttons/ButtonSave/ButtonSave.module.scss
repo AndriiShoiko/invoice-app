@@ -1,0 +1,27 @@
+@import "../../../styles/variables.scss";
+
+.button {
+    min-height: 48px;
+    border: none;
+    border-radius: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+
+    transition: 0.3s all;
+
+    @if ($dark-mode == true) {
+        background-color: #373b53;
+        color: $color-grey-medium;
+    } @else {
+        background-color: #373b53;
+        color: $color-grey-dark;
+    }
+
+    &:hover {
+        @if ($dark-mode == true) {
+            background-color: $color-dark-3;
+        } @else {
+            background-color: $color-dark-1;
+        }
+    }
+}

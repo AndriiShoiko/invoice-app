@@ -1,0 +1,21 @@
+@import "../../../styles/variables.scss";
+
+.button {
+    min-height: 48px;
+    width: 100%;
+    border: none;
+    border-radius: 24px;
+    color: $color-violet-light;
+
+    transition: 0.3s all;
+
+    @if ($dark-mode == true) {
+        background-color: $color-dark-2;
+      } @else {
+        background-color: $color-grey-light;
+      }    
+
+    &:hover {
+        background-color: $color-grey-medium;
+    }
+}

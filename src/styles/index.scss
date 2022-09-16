@@ -1,12 +1,27 @@
-@import '../styles/variables.scss';
-@import './reset.scss';
+@import "../styles/variables.scss";
+@import "./reset.scss";
 
 body {
-  font-family: 'League Spartan', 'Roboto', sans-serif;  
+  font-family: "League Spartan", "Roboto", sans-serif;
+
+  @if ($dark-mode == true) {
+    background-color: $color-dark-4;
+  } @else {
+    background-color: $color-grey-light;
+  }
 }
 
 html {
   box-sizing: border-box;
+}
+
+button {
+  font-family: "League Spartan", "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 15px;
+  letter-spacing: 0.25px;
 }
 
 *,

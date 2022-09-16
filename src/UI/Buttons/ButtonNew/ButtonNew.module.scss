@@ -1,0 +1,21 @@
+@import "../../../styles/variables.scss";
+
+.button {
+    background-color: $color-violet-dark;
+    color: white;
+    border-radius: 24px;
+    border: none;
+    background-image: url("../../../assets/btn-add-oval.svg");
+    background-repeat: no-repeat;
+    background-position-x: 8px;
+    background-position-y: 8px;
+    //min-width: 150px;
+    min-height: 48px;
+    padding-left: 56px;
+    padding-right: 15px;
+    transition: 0.3s all;
+
+    &:hover {
+        background-color: $color-violet-medium;
+    }
+}
