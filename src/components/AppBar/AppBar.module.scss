@@ -1,0 +1,59 @@
+@import "../../styles/variables.scss";
+
+.appBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 103px;
+    height: 100vh;
+    background: #373b53;
+    border-radius: 0px 20px 20px 0px;
+
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+        width: 103px;
+        height: 103px;
+        background: url("../../assets/main-logo.svg") no-repeat;
+        cursor: pointer;
+    }
+
+    .menu {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .icon {
+            width: 103px;
+            height: 103px;
+
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #494e6e;
+        }
+
+        img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+    }
+}
+
+@import "./AppBarTablet.module.scss";
+@import "./AppBarMobile.module.scss";
