@@ -9,19 +9,19 @@
 
     transition: 0.3s all;
 
-    @if ($dark-mode == true) {
-        background-color: #373b53;
-        color: $color-grey-medium;
-    } @else {
-        background-color: #373b53;
-        color: $color-grey-dark;
-    }
+    background-color: #373b53;
+    color: $color-grey-dark;
 
     &:hover {
-        @if ($dark-mode == true) {
+        background-color: $color-dark-1;
+    }
+
+    &_dark_mode {
+        background-color: #373b53;
+        color: $color-grey-medium;
+
+        &:hover {
             background-color: $color-dark-3;
-        } @else {
-            background-color: $color-dark-1;
         }
     }
 }

@@ -9,21 +9,21 @@
 
     transition: 0.3s all;
 
-    @if ($dark-mode == true) {
-        background-color: $color-dark-2;
-        color: $color-grey-medium;
-    } @else {
-        background-color: #F9FAFE;
+    background-color: #f9fafe;
+    color: $color-violet-light;
+
+    &:hover {
+        background-color: $color-grey-medium;
         color: $color-violet-light;
     }
 
-    &:hover {
-        @if ($dark-mode == true) {
+    &_dark_mode {
+        background-color: $color-dark-2;
+        color: $color-grey-medium;
+
+        &:hover {
             background-color: white;
             color: $color-grey-medium;
-        } @else {
-            background-color: $color-grey-medium;
-            color: $color-violet-light;
         }
     }
 }
