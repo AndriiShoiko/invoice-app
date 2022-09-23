@@ -20,7 +20,7 @@ function AppBar() {
     }, [isDarkMode]);
 
     return (
-        <div className={isDarkMode ? s.appBar : s.appBar + " " + s.appBar_dark_mode}>
+        <div className={!isDarkMode ? s.appBar : s.appBar + " " + s.appBar_dark_mode}>
             <div className={s.logo}></div>
             <div className={s.menu}>
                 <div className={s.icon}>

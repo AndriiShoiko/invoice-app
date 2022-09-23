@@ -1,0 +1,59 @@
+@import "../../styles/variables.scss";
+
+.header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-top: 72px;
+
+    .left_block {
+        h1 {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 36px;
+
+            letter-spacing: -1px;
+
+            color: $color-dark-3;
+            padding-bottom: 4px;
+        }
+
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 15px;
+            letter-spacing: -0.25px;
+
+            color: $color-grey-dark;
+        }
+    }
+
+    .right_block {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+    }
+
+    &_dark_mode {
+        .left_block {
+            h1 {
+                color: white;
+            }
+
+            p {
+                color: $color-grey-medium;
+            }
+        }
+    }
+}
+
+@import "./Header_tablet.module.scss";
+@import "./Header_mobile.module.scss";

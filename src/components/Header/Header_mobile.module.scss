@@ -1,0 +1,28 @@
+@media screen and (max-width: $mobile-screen-trigger) {
+    .header {
+        padding-top: 104px;
+
+        .left_block {
+            h1 {
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 22px;
+                letter-spacing: -0.625px;
+            }
+
+            p {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 15px;
+                letter-spacing: -0.25px;
+
+                color: $color-grey-dark;
+            }
+        }
+
+        .right_block {
+            gap: 18px;
+        }
+    }
+}
