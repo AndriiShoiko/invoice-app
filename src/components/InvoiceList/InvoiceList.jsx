@@ -1,9 +1,11 @@
 import Invoiceline from "../Invoiceline/Invoiceline";
 import s from "./InvoiceList.module.scss";
+import InvoiceListVoid from "./InvoiceListVoid";
 
 function InvoiceList() {
 
     return (
+
         <div className={s.invoiceList}>
             <Invoiceline
                 number="RT3080"
@@ -26,6 +28,7 @@ function InvoiceList() {
                 sum="£ 1,800.90"
                 chip="Paid"
             />
+            <InvoiceListVoid />
         </div>
     )
 }
