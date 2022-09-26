@@ -5,6 +5,7 @@ import invoice_svg from "../../assets/invoice-arrow.svg";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useElementWidth } from "../../hooks/useElementWidth";
 import { MOBILE_WIDTH } from "../../const";
+import { useNavigate } from "react-router-dom";
 
 function Invoiceline(props) {
 
@@ -13,8 +14,12 @@ function Invoiceline(props) {
     const isDarkMode = useDarkMode();
     const [, width] = useElementWidth();
 
+    const navigate = useNavigate();
     return (
-        <div className={!isDarkMode ? s.invoiceline : s.invoiceline + " " + s.invoiceline_dark_mode}>
+        <div className={!isDarkMode ? s.invoiceline : s.invoiceline + " " + s.invoiceline_dark_mode}
+            onClick={
+                () => navigate("/invoices/" + number)
+            }>
             <div className={s.left_block}>
                 <div className={s.number}>
                     <span className={s.prefix}>

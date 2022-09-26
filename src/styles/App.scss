@@ -3,11 +3,6 @@
 .App {
   margin: 0 auto;
   max-width: 730px;
-
-  .wrapper{
-    margin-left: 24px;
-    margin-right: 24px;
-  }
 }
 
 @media screen and (max-width: $tablet-screen-trigger) {

@@ -7,11 +7,13 @@ import { useDispatch } from "react-redux";
 import { toggleWorkMode } from "../../store/WorkMode/WorkModeActions";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AppBar() {
 
     const isDarkMode = useDarkMode();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const root = document.querySelector(":root");
@@ -21,7 +23,9 @@ function AppBar() {
 
     return (
         <div className={!isDarkMode ? s.appBar : s.appBar + " " + s.appBar_dark_mode}>
-            <div className={s.logo}></div>
+            <div className={s.logo} onClick={
+                () => navigate("/invoices/")
+            }></div>
             <div className={s.menu}>
                 <div className={s.icon}>
                     <img

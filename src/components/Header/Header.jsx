@@ -4,6 +4,7 @@ import ButtonNew from "../../UI/Buttons/ButtonNew/ButtonNew";
 import SelectFilter from "../../UI/Selects/SelectFilter/SelectFilter";
 import s from "./Header.module.scss";
 import { MOBILE_WIDTH } from "../../const";
+import { Link } from "react-router-dom";
 
 function Header() {
 
@@ -18,7 +19,9 @@ function Header() {
             </div>
             <div className={s.right_block}>
                 <SelectFilter>{width <= MOBILE_WIDTH ? "Filter" : "Filter by status"}</SelectFilter>
-                <ButtonNew>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
+                <Link to="/new">
+                    <ButtonNew>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
+                </Link>
             </div>
         </header>
     )

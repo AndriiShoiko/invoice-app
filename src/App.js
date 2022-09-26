@@ -1,16 +1,22 @@
 import AppBar from './components/AppBar/AppBar';
-import Header from './components/Header/Header';
-import InvoiceList from './components/InvoiceList/InvoiceList';
+import Invoices from './pages/Invoices';
 import './styles/App.scss';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ViewInvoice from './pages/ViewInvoice';
+import NewInvoice from './pages/NewInvoice';
 
 function App() {
   return (
     <div className="App">
+      <BrowserRouter>
       <AppBar />
-      <div className="wrapper">
-        <Header />
-        <InvoiceList />
-      </div>
+        <Routes>
+          <Route path="/" element={<Navigate to="invoices" replace />} />
+          <Route path="invoices" element={<Invoices />} />
+          <Route path="invoices/:id" element={<ViewInvoice />} />
+          <Route path="invoices/new" element={<NewInvoice />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
