@@ -1,0 +1,61 @@
+@import "../../../styles/variables.scss";
+
+.chip {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+
+    width: 104px;
+    height: 40px;
+
+    border-radius: 6px;
+
+    transition: 0.3s all;
+
+    ul {
+        list-style: none;
+
+        li {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 15px;
+
+            letter-spacing: -0.25px;
+        }
+
+        li:before {
+            content: "\2B24";
+            font-size: 9px;
+            margin-right: 10px;
+        }
+    }
+
+    &_paid {
+        background: rgb(20%, 84%, 62%, 0.06);
+        ul {
+            li {
+                color: #33d69f;
+            }
+        }
+    }
+
+    &_pending {
+        background: rgb(100%, 56%, 0%, 0.06);
+        ul {
+            li {
+                color: #FF8F00;
+            }
+        }
+    }
+
+    &_draft {
+        background: rgb(22%, 23%, 33%, 0.06);
+        ul {
+            li {
+                color: #373B53;
+            }
+        }
+    }    
+}

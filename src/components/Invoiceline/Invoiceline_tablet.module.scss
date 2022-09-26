@@ -1,0 +1,12 @@
+@import "../../styles/variables.scss";
+
+@media screen and (max-width: $tablet-screen-trigger) {
+    .invoiceline {
+        padding-left: 24px;
+        padding-right: 24px;
+
+        .left_block {
+            gap: 27px;
+        }
+    }
+}

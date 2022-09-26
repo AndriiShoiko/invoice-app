@@ -1,0 +1,100 @@
+@import "../../styles/variables.scss";
+
+.invoiceline {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #ffffff;
+    box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+    border-radius: 8px;
+
+    min-height: 72px;
+
+    padding-left: 32px;
+    padding-right: 32px;
+
+    .left_block {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 43px;
+        margin-right: 10px;
+
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+
+        color: $color-grey-dark;
+
+        .number {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 15px;
+            letter-spacing: -0.25px;
+
+            color: #0c0e16;
+            .prefix {
+                color: $color-violet-light;
+            }
+        }
+    }
+
+    .right_block {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 40px;
+
+        .sum {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 24px;
+            text-align: right;
+            white-space: nowrap;
+            letter-spacing: -0.8px;
+            color: $color-dark-3;
+        }
+
+        .chip_and_row {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+    }
+
+    &_dark_mode {
+        background: $color-dark-1;
+        box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+
+        .left_block {
+            color: white;
+
+            .number {
+                color: white;
+            }
+
+            .date {
+                color: $color-grey-medium;
+            }
+        }
+
+        .right_block {
+            .sum {
+                color: white;
+            }
+        }
+    }
+}
+
+@import "./Invoiceline_tablet.module.scss";
+@import "./Invoiceline_mobile.module.scss";
