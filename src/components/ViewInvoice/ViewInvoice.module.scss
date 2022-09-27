@@ -1,0 +1,287 @@
+@import "../../styles/variables.scss";
+
+a {
+    text-decoration: none;
+}
+
+.editInvoice {
+    padding-top: 64px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: column;
+
+    .details {
+        width: 100%;
+        background-color: #ffffff;
+        box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+        border-radius: 8px;
+        padding: 48px;
+
+        .head {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 21px;
+
+            .left_part {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 15px;
+                letter-spacing: -0.25px;
+
+                color: $color-violet-light;
+
+                .number {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 24px;
+                    letter-spacing: -0.8px;
+                    color: black;
+
+                    span {
+                        color: $color-grey-dark;
+                    }
+                }
+            }
+
+            .right_part {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 1px;
+
+                font-style: normal;
+                font-weight: 500;
+                font-size: 11px;
+                line-height: 18px;
+                text-align: right;
+                letter-spacing: -0.229167px;
+                color: $color-violet-light;
+            }
+        }
+
+        .info {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: flex-start;
+            gap: 100px;
+            margin-bottom: 45px;
+
+            .first_part {
+                .invoice_date {
+                    .invoice_date_caption {
+                        margin-bottom: 12px;
+                    }
+                    margin-bottom: 32px;
+                }
+                .payment_due {
+                    .payment_due_caption {
+                        margin-bottom: 12px;
+                    }
+                }
+            }
+
+            .middle_part {
+                .bill_to_caption {
+                    margin-bottom: 12px;
+                }
+                .bill_to {
+                    margin-bottom: 8px;
+                }
+                .bill_adress {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 11px;
+                    line-height: 18px;
+                    letter-spacing: -0.229167px;
+                    color: $color-violet-light;
+                }
+            }
+
+            .finally_part {
+                .sent_to_caption {
+                    margin-bottom: 12px;
+                }
+            }
+
+            .caption {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 15px;
+                letter-spacing: -0.25px;
+                color: $color-violet-light;
+            }
+
+            .fields {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 15px;
+                line-height: 20px;
+                letter-spacing: -0.3125px;
+                color: $color-dark-3;
+            }
+        }
+
+        .list_of_services {
+            background: #f9fafe;
+            border-radius: 8px 8px 0px 0px;
+            padding-top: 32px;
+            padding-bottom: 8px;
+
+            .table_services {
+                width: 100%;
+
+                th {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 11px;
+                    line-height: 18px;
+                    letter-spacing: -0.229167px;
+                    color: $color-violet-light;
+                    padding-bottom: 32px;
+                }
+
+                td {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 12px;
+                    line-height: 15px;
+                    letter-spacing: -0.25px;
+                    padding-bottom: 32px;
+                }
+
+                th:first-child,
+                td:first-child {
+                    width: 50%;
+                    text-align: left;
+                    padding-left: 32px;
+                }
+
+                th:nth-child(2),
+                td:nth-child(2) {
+                    width: 10%;
+                    text-align: center;
+                    color: $color-violet-light;
+                }
+
+                th:nth-child(3),
+                td:nth-child(3) {
+                    width: 15%;
+                    text-align: right;
+                    color: $color-violet-light;
+                }
+                th:nth-child(4),
+                td:nth-child(4) {
+                    width: 25%;
+                    text-align: right;
+                    padding-right: 32px;
+                }
+            }
+        }
+
+        .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 32px;
+            padding-right: 32px;
+            height: 80px;
+            background: #373b53;
+            border-radius: 0px 0px 8px 8px;
+            color: white;
+
+            .ammount {
+                font-style: normal;
+                font-weight: 500;
+                font-size: 11px;
+                line-height: 18px;
+                letter-spacing: -0.229167px;
+            }
+
+            .sum {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 32px;
+                text-align: right;
+                letter-spacing: -0.5px;
+            }
+        }
+    }
+
+    &_dark_mode {
+        .details {
+            background-color: $color-dark-1;
+            box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+
+            .head {
+                .left_part {
+                    color: $color-grey-medium;
+
+                    .number {
+                        color: white;
+
+                        span {
+                            color: $color-grey-medium;
+                        }
+                    }
+                }
+
+                .right_part {
+                    color: $color-grey-medium;
+                }
+            }
+
+            .info {
+                .middle_part {
+                    .bill_adress {
+                        color: $color-grey-medium;
+                    }
+                }
+
+                .caption {
+                    color: $color-grey-medium;
+                }
+
+                .fields {
+                    color: white;
+                }
+            }
+
+            .list_of_services {
+                background: #252945;
+                color: white;
+                .table_services {
+                    th {
+                        color: $color-grey-medium;
+                    }
+
+                    th:nth-child(2),
+                    td:nth-child(2) {
+                        color: $color-grey-medium;
+                    }
+
+                    th:nth-child(3),
+                    td:nth-child(3) {
+                        color: $color-grey-medium;
+                    }
+                }
+            }
+
+            .foot {
+                background-color: $color-dark-3;
+            }
+        }
+    }
+}

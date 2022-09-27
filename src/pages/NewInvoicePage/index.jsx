@@ -1,5 +1,5 @@
 
-function NewInvoice() {
+function NewInvoicePage() {
     return (
       <div>
         <h1>New invoice</h1>
@@ -7,4 +7,4 @@ function NewInvoice() {
     )
   }
   
-  export default NewInvoice;
+  export default NewInvoicePage;

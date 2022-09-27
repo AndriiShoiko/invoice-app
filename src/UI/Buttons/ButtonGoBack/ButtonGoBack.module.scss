@@ -1,0 +1,21 @@
+@import "../../../styles/variables.scss";
+
+.buttonGoBack {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 23px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+
+    color: $color-dark-3;
+    cursor: pointer;
+
+    &_dark_mode{
+        color: white;
+    }
+}

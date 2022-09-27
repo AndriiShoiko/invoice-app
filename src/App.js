@@ -1,9 +1,9 @@
 import AppBar from './components/AppBar/AppBar';
-import Invoices from './pages/Invoices';
+import InvoicesPage from './pages/InvoicesPage';
 import './styles/App.scss';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ViewInvoice from './pages/ViewInvoice';
-import NewInvoice from './pages/NewInvoice';
+import ViewInvoicePage from './pages/ViewInvoicePage';
+import NewInvoicePage from './pages/NewInvoicePage';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <AppBar />
         <Routes>
           <Route path="/" element={<Navigate to="invoices" replace />} />
-          <Route path="invoices" element={<Invoices />} />
-          <Route path="invoices/:id" element={<ViewInvoice />} />
-          <Route path="invoices/new" element={<NewInvoice />} />
+          <Route path="invoices" element={<InvoicesPage />} />
+          <Route path="invoices/:id" element={<ViewInvoicePage />} />
+          <Route path="invoices/new" element={<NewInvoicePage />} />
         </Routes>
       </BrowserRouter>
     </div>

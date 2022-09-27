@@ -19,7 +19,7 @@ function Header() {
             </div>
             <div className={s.right_block}>
                 <SelectFilter>{width <= MOBILE_WIDTH ? "Filter" : "Filter by status"}</SelectFilter>
-                <Link to="/new">
+                <Link to="/invoices/new">
                     <ButtonNew>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
                 </Link>
             </div>

@@ -6,7 +6,8 @@
     align-items: center;
     justify-content: space-between;
 
-    background: #ffffff;
+    background: white;
+    border: 1px solid white;
     box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
     border-radius: 8px;
 
@@ -15,6 +16,11 @@
     padding-left: 32px;
     padding-right: 32px;
     cursor: pointer;
+    transition: 0.2s all;
+
+    &:hover, &:active {
+        border: 1px solid #7C5DFA;
+    }
 
     .left_block {
         display: flex;
@@ -80,6 +86,7 @@
 .invoiceline {
     &_dark_mode {
         background: $color-dark-1;
+        border: 1px solid $color-dark-1;
         box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 
         .left_block {
