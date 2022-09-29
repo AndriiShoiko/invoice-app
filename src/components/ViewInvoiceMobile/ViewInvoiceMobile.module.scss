@@ -5,7 +5,10 @@ a {
 }
 
 .editInvoice {
-    margin-top: 64px;
+    margin-top: 104px;
+    margin-left: 24px;
+    margin-right: 24px;
+
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -16,14 +19,16 @@ a {
         background-color: #ffffff;
         box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
         border-radius: 8px;
-        padding: 48px;
+        padding: 24px;
+        margin-bottom: 56px;
 
         .head {
             display: flex;
             flex-wrap: nowrap;
-            flex-direction: row;
-            justify-content: space-between;
+            flex-direction: column;
+            justify-content: flex-start;
             margin-bottom: 21px;
+            gap: 30px;
 
             .left_part {
                 display: flex;
@@ -56,7 +61,7 @@ a {
             .right_part {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-end;
+                align-items: flex-start;
                 gap: 1px;
 
                 font-style: normal;
@@ -71,10 +76,10 @@ a {
 
         .info {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             flex-direction: row;
             justify-content: flex-start;
-            gap: 100px;
+            gap: 43px;
             margin-bottom: 45px;
 
             .first_part {
@@ -136,58 +141,44 @@ a {
         }
 
         .list_of_services {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
             background: #f9fafe;
             border-radius: 8px 8px 0px 0px;
-            padding-top: 32px;
-            padding-bottom: 8px;
+            padding: 24px;
 
-            .table_services {
-                width: 100%;
-
-                th {
-                    font-style: normal;
-                    font-weight: 500;
-                    font-size: 11px;
-                    line-height: 18px;
-                    letter-spacing: -0.229167px;
-                    color: $color-violet-light;
-                    padding-bottom: 32px;
+            .service {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .left_part {
+                    .name {
+                        margin-bottom: 8px;
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 12px;
+                        line-height: 15px;
+                        letter-spacing: -0.25px;
+                        color: $color-dark-3;
+                    }
+                    .count {
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 12px;
+                        line-height: 15px;
+                        letter-spacing: -0.25px;
+                        color: $color-violet-light;
+                    }
                 }
-
-                td {
+                .right_part {
                     font-style: normal;
                     font-weight: 700;
                     font-size: 12px;
                     line-height: 15px;
+                    text-align: right;
                     letter-spacing: -0.25px;
-                    padding-bottom: 32px;
-                }
-
-                th:first-child,
-                td:first-child {
-                    width: 50%;
-                    text-align: left;
-                    padding-left: 32px;
-                }
-
-                th:nth-child(2),
-                td:nth-child(2) {
-                    width: 10%;
-                    text-align: center;
-                    color: $color-violet-light;
-                }
-
-                th:nth-child(3),
-                td:nth-child(3) {
-                    width: 15%;
-                    text-align: right;
-                    color: $color-violet-light;
-                }
-                th:nth-child(4),
-                td:nth-child(4) {
-                    width: 25%;
-                    text-align: right;
-                    padding-right: 32px;
+                    color: $color-dark-3;
                 }
             }
         }
@@ -264,19 +255,18 @@ a {
             .list_of_services {
                 background: #252945;
                 color: white;
-                .table_services {
-                    th {
-                        color: $color-grey-medium;
-                    }
 
-                    th:nth-child(2),
-                    td:nth-child(2) {
-                        color: $color-grey-medium;
+                .service {
+                    .left_part {
+                        .name {
+                            color: white;
+                        }
+                        .count {
+                            color: $color-grey-dark;
+                        }
                     }
-
-                    th:nth-child(3),
-                    td:nth-child(3) {
-                        color: $color-grey-medium;
+                    .right_part {
+                        color: white;
                     }
                 }
             }
@@ -284,16 +274,6 @@ a {
             .foot {
                 background-color: $color-dark-3;
             }
-        }
-    }
-}
-
-@media screen and (max-width: $tablet-screen-trigger) {
-    .editInvoice {
-        margin-top: 128px;
-
-        .details {
-            padding: 32px;
         }
     }
 }

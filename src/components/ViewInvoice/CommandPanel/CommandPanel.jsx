@@ -1,10 +1,10 @@
 import s from "./CommandPanel.module.scss";
-import StatusChip from "../../UI/Chips/StatusChip/StatusChip";
-import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
-import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
-import ButtonDelete from "../../UI/Buttons/ButtonDelete/ButtonDelete";
+import StatusChip from "../../../UI/Chips/StatusChip/StatusChip";
+import ButtonEdit from "../../../UI/Buttons/ButtonEdit/ButtonEdit";
+import ButtonMark from "../../../UI/Buttons/ButtonMark/ButtonMark";
+import ButtonDelete from "../../../UI/Buttons/ButtonDelete/ButtonDelete";
 
-import {useDarkMode} from "../../hooks/useDarkMode";
+import { useDarkMode } from "../../../hooks/useDarkMode";
 
 function CommandPanel() {
 

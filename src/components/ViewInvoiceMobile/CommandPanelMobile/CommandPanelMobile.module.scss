@@ -1,0 +1,74 @@
+@import "../../../styles/variables.scss";
+
+.commandPanelTop {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 32px;
+    margin-bottom: 24px;
+    padding: 25px 24px;
+
+    background-color: #ffffff;
+    box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+    border-radius: 8px;
+
+    .top_block {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+
+        color: #858bb2;
+    }
+
+    &_dark_mode {
+        background-color: $color-dark-1;
+        box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+        .top_block {
+            color: $color-grey-medium;
+        }
+    }
+}
+
+.commandPanelBottom {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 25px 24px;
+
+    background-color: #ffffff;
+    box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+    border-radius: 8px;
+
+    .bottom_block {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: white;
+        box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+    }
+
+    &_dark_mode {
+        background-color: $color-dark-1;
+        box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+        
+        .bottom_block{
+            background-color: $color-dark-1;
+            box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+        }
+    }
+}

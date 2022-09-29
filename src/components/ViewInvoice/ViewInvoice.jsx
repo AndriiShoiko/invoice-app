@@ -1,6 +1,6 @@
 import s from "./ViewInvoice.module.scss";
 import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
-import CommandPanel from "./CommandPanel";
+import CommandPanel from "./CommandPanel/CommandPanel";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { Link } from "react-router-dom";
 
