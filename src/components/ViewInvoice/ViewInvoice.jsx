@@ -3,17 +3,21 @@ import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
 import CommandPanel from "./CommandPanel/CommandPanel";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { Link } from "react-router-dom";
+import EditInvoice from "../EditInvoice/EditInvoice";
+import { useState } from "react";
 
 function ViewInvoice() {
 
     const isDarkMode = useDarkMode();
+    const [viewActive, setViewActive] = useState(false);
 
     return (
         <div className={!isDarkMode ? s.editInvoice : s.editInvoice + " " + s.editInvoice_dark_mode}>
             <Link to="/invoices">
                 <ButtonGoBack />
             </Link>
-            <CommandPanel />
+            <CommandPanel editHandler={setViewActive} />
+            <EditInvoice active={viewActive} setActive={setViewActive} />
 
             <div className={s.details}>
 

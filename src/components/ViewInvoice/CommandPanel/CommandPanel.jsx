@@ -6,7 +6,7 @@ import ButtonDelete from "../../../UI/Buttons/ButtonDelete/ButtonDelete";
 
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
-function CommandPanel() {
+function CommandPanel({ editHandler }) {
 
     const isDarkMode = useDarkMode();
 
@@ -17,7 +17,7 @@ function CommandPanel() {
                 <StatusChip>Pending</StatusChip>
             </div>
             <div className={s.right_block}>
-                <ButtonEdit>Edit</ButtonEdit>
+                <ButtonEdit onClick={() => editHandler(true)}>Edit</ButtonEdit>
                 <ButtonDelete>Delete</ButtonDelete>
                 <ButtonMark>Mark as Paid</ButtonMark>
             </div>

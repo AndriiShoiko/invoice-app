@@ -1,0 +1,71 @@
+@import "../../styles/variables.scss";
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 103px;
+    transform: scale(0);
+
+    .editInvoice {
+        position: relative;
+        background-color: white;
+        border-radius: 0px 20px 20px 0px;
+        width: 616px;
+        height: 100vh;
+        padding-left: 56px;
+        padding-right: 32px;
+        padding-top: 56px;
+
+        .number {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 32px;
+            letter-spacing: -0.5px;
+            color: $color-dark-3;
+            margin-bottom: 48px;
+
+            .prefix {
+                color: $color-grey-dark;
+            }
+        }
+
+        .bill_from {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 15px;
+            letter-spacing: -0.25px;
+            color: $color-violet-dark;
+            margin-bottom: 24px;
+        }
+
+        .form {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-right: 24px;
+            height: calc(100% - 190px);
+        }
+
+        .commands {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            height: 110px;
+            padding-right: 56px;
+        }
+    }
+}
+
+.active {
+    transform: scale(1);
+}
