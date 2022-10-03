@@ -3,6 +3,7 @@ import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
 import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
 import InputForm from "../../UI/Inputs/InputForm/InputForm";
 import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
+import Select from "../../UI/Selects/Select/Select";
 
 function EditInvoice({ active, setActive }) {
 
@@ -10,13 +11,13 @@ function EditInvoice({ active, setActive }) {
         <div className={active ? s.wrapper + " " + s.active : s.wrapper}>
             <div className={s.editInvoice}>
                 <header className={s.number}>
-                    Edit <span className={s.prefix}>#</span> XM9141
+                    Edit <span className={s.prefix}>#</span>XM9141
                 </header>
 
                 <form className={s.form}>
 
+                    <div className={s.caption}>Bill From</div>
                     <section className={s.bill_from}>
-                        <caption className={s.caption}>Bill From</caption>
                         <div className={s.wrapper_input}>
                             <InputForm placeholder="Street Address" id="street_adress" error="false" />
                         </div>
@@ -33,8 +34,8 @@ function EditInvoice({ active, setActive }) {
                         </div>
                     </section>
 
+                    <div className={s.caption}>Bill To</div>
                     <section className={s.bill_to}>
-                        <caption className={s.caption}>Bill To</caption>
                         <div className={s.wrapper_input}>
                             <InputForm placeholder="Client’s Name" id="client_name" error="false" />
                         </div>
@@ -62,7 +63,7 @@ function EditInvoice({ active, setActive }) {
                                 <DatePicker placeholder="Invoice Date" id="invoice_date" error="true" />
                             </div>
                             <div className={s.input50}>
-                                <DatePicker placeholder="Invoice Date" id="invoice_date1" error="false" />
+                                <Select readOnly={true} placeholder="Payment Terms" id="payment_terms" error="true" />
                             </div>
                         </div>
 

@@ -8,9 +8,8 @@
     flex-wrap: nowrap;
     flex-direction: row;
  
-    //align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    //gap: 13px;
     position: relative;
 
     .label {
@@ -23,6 +22,7 @@
         color: $color-dark-3;
         margin-left: 29px;
         cursor: pointer;
+        padding: 0;
     }
 
     label:before {
