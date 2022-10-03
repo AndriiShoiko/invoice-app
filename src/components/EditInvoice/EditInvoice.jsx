@@ -1,6 +1,8 @@
 import s from "./EditInvoice.module.scss";
 import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
 import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
+import InputForm from "../../UI/Inputs/InputForm/InputForm";
+import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
 
 function EditInvoice({ active, setActive }) {
 
@@ -11,8 +13,63 @@ function EditInvoice({ active, setActive }) {
                     Edit <span className={s.prefix}>#</span> XM9141
                 </header>
 
-                <h3 className={s.bill_from}>Bill From</h3>
                 <form className={s.form}>
+
+                    <section className={s.bill_from}>
+                        <caption className={s.caption}>Bill From</caption>
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Street Address" id="street_adress" error="false" />
+                        </div>
+                        <div className={s.city_code_country}>
+                            <div className={s.input30}>
+                                <InputForm placeholder="City" id="city" error="false" />
+                            </div>
+                            <div className={s.input30}>
+                                <InputForm placeholder="Post Code" id="post_code" error="false" />
+                            </div>
+                            <div className={s.input30}>
+                                <InputForm placeholder="Country" id="country" error="false" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className={s.bill_to}>
+                        <caption className={s.caption}>Bill To</caption>
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Client’s Name" id="client_name" error="false" />
+                        </div>
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Client’s Email" id="client_email" error="false" />
+                        </div>
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Street Address" id="street_adress_to" error="false" />
+                        </div>
+
+                        <div className={s.city_code_country}>
+                            <div className={s.input30}>
+                                <InputForm placeholder="City" id="city_to" error="false" />
+                            </div>
+                            <div className={s.input30}>
+                                <InputForm placeholder="Post Code" id="post_code_to" error="false" />
+                            </div>
+                            <div className={s.input30}>
+                                <InputForm placeholder="Country" id="country_to" error="false" />
+                            </div>
+                        </div>
+
+                        <div className={s.date_payment}>
+                            <div className={s.input50}>
+                                <DatePicker placeholder="Invoice Date" id="invoice_date" error="true" />
+                            </div>
+                            <div className={s.input50}>
+                                <DatePicker placeholder="Invoice Date" id="invoice_date1" error="false" />
+                            </div>
+                        </div>
+
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Project Description" id="project_description" error="false" />
+                        </div>
+                    </section>
 
                 </form>
 

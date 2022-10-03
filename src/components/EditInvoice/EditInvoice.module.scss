@@ -33,7 +33,25 @@
             }
         }
 
-        .bill_from {
+        .input30 {
+            width: 30%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        .input50 {
+            width: 50%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        .caption {
             font-style: normal;
             font-weight: 700;
             font-size: 12px;
@@ -41,6 +59,26 @@
             letter-spacing: -0.25px;
             color: $color-violet-dark;
             margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .wrapper_input {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            justify-content: space-between;
+            flex-direction: column;
+            margin-bottom: 24px;
+        }
+
+        .city_code_country {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 48px;
         }
 
         .form {
@@ -50,6 +88,24 @@
             overflow-y: auto;
             padding-right: 24px;
             height: calc(100% - 190px);
+
+            .bill_from,
+            .bill_to {
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: column;
+            }
+
+            .bill_to {
+                .date_payment {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: stretch;
+                    justify-content: space-between;
+                    gap: 24px;
+                    margin-bottom: 24px;
+                }
+            }
         }
 
         .commands {

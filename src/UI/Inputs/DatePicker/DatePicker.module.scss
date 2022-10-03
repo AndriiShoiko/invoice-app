@@ -1,0 +1,44 @@
+@import "../../../styles/variables.scss";
+
+.datePicker {
+    background-color: white;
+    border: 1px solid $color-violet-medium;
+    border-radius: 4px;
+    min-height: 48px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    color: #777F98;
+    cursor: pointer;
+
+    &[error="true"] {
+        border: 1px solid #ec5757;
+    }
+}
+
+label {
+    position: relative;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    color: $color-violet-light;
+    padding-bottom: 10px;
+
+    &[error="true"] {
+        color: #ec5757;
+    }
+
+    &[error="true"]::after {
+        content: "can’t be empty";
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
