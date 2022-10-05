@@ -19,9 +19,13 @@ $color-dark-4: #141625;
 $tablet-screen-trigger: 950px;
 $mobile-screen-trigger: 560px;
 
-:root{
+:root {
     --body-background-color-day: #{$color-grey-light};
     --body-background-color-dark: #{$color-dark-4};
 
+    --slider-color-day: #{$color-grey-medium};
+    --slider-color-dark: #{$color-dark-2};
+
     --body-background-color: var(#{--body-background-color-day});
+    --slider-color: var(#{--slider-color-day});
 }

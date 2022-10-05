@@ -4,11 +4,28 @@ import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
 import InputForm from "../../UI/Inputs/InputForm/InputForm";
 import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
 import Select from "../../UI/Selects/Select/Select";
+import ItemList from "../ItemList/ItemList";
+import ButtonNewItem from "../../UI/Buttons/ButtonNewItem/ButtonNewItem";
+import { useDarkMode } from "../../hooks/useDarkMode";
 
 function EditInvoice({ active, setActive }) {
 
+    const isDarkMode = useDarkMode();
+
+    function getClasses(isDarkMode, active) {
+        if (isDarkMode) {
+            if (active) {
+                return s.wrapper + " " + s.wrapper_dark_mode + " " + s.active;
+            } else {
+                return s.wrapper + " " + s.wrapper_dark_mode;
+            }
+        } else {
+            return active ? s.wrapper + " " + s.active : s.wrapper;
+        }
+    }
+
     return (
-        <div className={active ? s.wrapper + " " + s.active : s.wrapper}>
+        <div className={getClasses(isDarkMode, active)}>
             <div className={s.editInvoice}>
                 <header className={s.number}>
                     Edit <span className={s.prefix}>#</span>XM9141
@@ -63,7 +80,7 @@ function EditInvoice({ active, setActive }) {
                                 <DatePicker placeholder="Invoice Date" id="invoice_date" error="true" />
                             </div>
                             <div className={s.input50}>
-                                <Select readOnly={true} placeholder="Payment Terms" id="payment_terms" error="true" />
+                                <Select readOnly={true} placeholder="Payment Terms" id="payment_terms" error="false" />
                             </div>
                         </div>
 
@@ -71,7 +88,13 @@ function EditInvoice({ active, setActive }) {
                             <InputForm placeholder="Project Description" id="project_description" error="false" />
                         </div>
                     </section>
-
+                    <section className={s.itemList}>
+                        <div className={s.captionItemList}>Item List</div>
+                        <div className={s.table}>
+                            <ItemList />
+                        </div>
+                        <ButtonNewItem>+ Add New Item</ButtonNewItem>
+                    </section>
                 </form>
 
                 <div className={s.commands}>

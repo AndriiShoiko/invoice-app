@@ -19,9 +19,15 @@
     &[error="true"] {
         border: 1px solid #ec5757;
     }
+
+    &_dark_mode {
+        background: $color-dark-1; 
+        border: 1px solid $color-dark-2;
+        color: white;
+    }
 }
 
-label {
+.label {
     position: relative;
     font-style: normal;
     font-weight: 500;
@@ -40,5 +46,9 @@ label {
         position: absolute;
         top: 0;
         right: 0;
+    }
+
+    &_dark_mode {
+        color: $color-grey-medium;
     }
 }

@@ -42,8 +42,8 @@ function Select(props) {
     }
 
     return (
-        <div className={s.select} ref={selectRef}>
-            <label {...props} htmlFor={props.id}>
+        <div className={!isDarkMode ? s.select : s.select + " " + s.select_dark_mode} ref={selectRef}>
+            <label {...props} htmlFor={props.id} className={s.label}>
                 {props.placeholder}
             </label>
             <input {...props} type="text" className={s.input} ref={selectInput} />

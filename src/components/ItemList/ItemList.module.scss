@@ -1,0 +1,93 @@
+@import "../../styles/variables.scss";
+
+.itemList {
+    border-spacing: 16px 18px;
+    border-collapse: separate;
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-top: -18px;
+    margin-bottom: -18px;
+
+    th {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+        color: $color-violet-light;
+        text-align: left;
+    }
+
+    td {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+        color: $color-dark-3;
+        padding: 17px 20px;
+
+        background-color: white;
+        border: 1px solid $color-grey-medium;
+        border-radius: 4px;
+    }
+
+    th:first-child,
+    td:first-child {
+        width: 40%;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+        width: 10%;
+    }
+    th:nth-child(3),
+    td:nth-child(3) {
+        width: 20%;
+    }
+    th:nth-child(4),
+    td:nth-child(4) {
+        width: 20%;
+        border: none;
+    }
+    th:nth-child(5),
+    td:nth-child(5) {
+        width: 10%;
+        border: none;
+        padding: 0;
+    }
+    th:nth-child(4) {
+        text-align: center;
+    }
+    td:nth-child(5) {
+        background-image: url("../../assets/trash.svg");
+        background-repeat: no-repeat;
+        background-position: left;
+        cursor: pointer;
+        transition: 0.2s all;
+
+        &:hover {
+            background-image: url("../../assets/trash-hover.svg");
+        }
+    }
+
+    &_dark_mode {
+        th {
+            color: $color-grey-medium;
+        }
+        td {
+            color: white;
+            background-color: $color-dark-1;
+            border: 1px solid $color-dark-2;
+        }
+        th:nth-child(4),
+        td:nth-child(4) {
+            border: none;
+            background-color: inherit;
+        }
+        th:nth-child(5),
+        td:nth-child(5) {
+            border: none;
+            background-color: inherit;
+        }
+    }
+}

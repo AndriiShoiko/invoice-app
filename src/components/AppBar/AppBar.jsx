@@ -19,6 +19,8 @@ function AppBar() {
         const root = document.querySelector(":root");
         root.style.setProperty("--body-background-color",
             `var(--body-background-color-${isDarkMode ? "dark" : "day"})`);
+        root.style.setProperty("--slider-color",
+            `var(--slider-color-${isDarkMode ? "dark" : "day"})`);
     }, [isDarkMode]);
 
     return (

@@ -105,6 +105,22 @@
                     gap: 24px;
                     margin-bottom: 24px;
                 }
+                margin-bottom: 32px;
+            }
+
+            .itemList {
+                .captionItemList {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 32px;
+                    letter-spacing: -0.375px;
+                    color: #777f98;
+                    padding-bottom: 16px;
+                }
+                .table {
+                    padding-bottom: 18px;
+                }
             }
         }
 
@@ -118,6 +134,21 @@
             gap: 8px;
             height: 110px;
             padding-right: 56px;
+        }
+    }
+
+    &_dark_mode {
+        .editInvoice {
+            background-color: #141625;
+            border-radius: 0px 20px 20px 0px;
+
+            .number {
+                color: white;
+    
+                .prefix {
+                    color: $color-grey-dark;
+                }
+            }
         }
     }
 }

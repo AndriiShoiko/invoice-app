@@ -35,11 +35,11 @@ body {
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-    background-color: white;
+    background-color: var(#{--body-background-color});
   }
 
   ::-webkit-scrollbar-thumb {
-    background: $color-grey-medium;
+    background: var(#{--slider-color});
     border-radius: 4px;
   }
 

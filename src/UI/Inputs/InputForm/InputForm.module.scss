@@ -7,7 +7,6 @@
     min-height: 48px;
     padding-left: 20px;
     padding-right: 20px;
-    //width: 100%;
 
     font-style: normal;
     font-weight: 700;
@@ -17,16 +16,22 @@
     color: $color-dark-3;
     cursor: pointer;
 
-    &::placeholder{
-       opacity: 0; 
+    &::placeholder {
+        opacity: 0;
     }
 
     &[error="true"] {
         border: 1px solid #ec5757;
     }
+
+    &_dark_mode {
+        background: $color-dark-1; 
+        border: 1px solid $color-dark-2;
+        color: white;
+    }
 }
 
-label {
+.label {
     position: relative;
     font-style: normal;
     font-weight: 500;
@@ -40,10 +45,14 @@ label {
         color: #ec5757;
     }
 
-    &[error="true"]::after{
+    &[error="true"]::after {
         content: "can’t be empty";
         position: absolute;
         top: 0;
         right: 0;
+    }
+
+    &_dark_mode {
+        color: $color-grey-medium;
     }
 }

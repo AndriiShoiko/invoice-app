@@ -77,28 +77,47 @@
     }
 
     .visible {
-        display: block; 
-    }
-}
-
-label {
-    position: relative;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 15px;
-    letter-spacing: -0.25px;
-    color: $color-violet-light;
-    padding-bottom: 10px;
-
-    &[error="true"] {
-        color: #ec5757;
+        display: block;
     }
 
-    &[error="true"]::after {
-        content: "can’t be empty";
-        position: absolute;
-        top: 0;
-        right: 0;
+    .label {
+        position: relative;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+        color: $color-violet-light;
+        padding-bottom: 10px;
+
+        &[error="true"] {
+            color: #ec5757;
+        }
+
+        &[error="true"]::after {
+            content: "can’t be empty";
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
+    &_dark_mode {
+        .input {
+            background: $color-dark-1;
+            border: 1px solid $color-dark-2;
+            color: white;
+        }
+        .options {
+            background: $color-dark-2;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+            .option{
+                color: white;
+                border-bottom: 1px solid $color-dark-1;
+            }
+        }
+        .label {
+            color: $color-grey-medium;
+        }
     }
 }
