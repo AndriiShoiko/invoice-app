@@ -1,0 +1,17 @@
+@import "../../styles/variables.scss";
+
+@media screen and (max-width: $tablet-screen-trigger) {
+    .wrapper {
+        top: 80px;
+        left: 0;
+        .editInvoice {
+            .form {
+                height: calc(100% - 270px);
+            }
+            .commands {
+                height: 270px;
+                padding-right: 56px;
+            }
+        }
+    }
+}
