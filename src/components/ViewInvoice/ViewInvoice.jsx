@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 import EditInvoice from "../EditInvoice/EditInvoice";
 import { useState } from "react";
 
-function ViewInvoice() {
+function ViewInvoice({edit}) {
 
     const isDarkMode = useDarkMode();
-    const [viewActive, setViewActive] = useState(false);
+    const [viewActive, setViewActive] = useState(edit);
 
     return (
         <div className={!isDarkMode ? s.editInvoice : s.editInvoice + " " + s.editInvoice_dark_mode}>

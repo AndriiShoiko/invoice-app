@@ -1,29 +1,19 @@
-import s from "./EditInvoice.module.scss";
-import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
-import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
-import InputForm from "../../UI/Inputs/InputForm/InputForm";
-import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
-import Select from "../../UI/Selects/Select/Select";
-import ItemList from "../ItemList/ItemList";
+import { Link } from "react-router-dom";
+import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
 import ButtonNewItem from "../../UI/Buttons/ButtonNewItem/ButtonNewItem";
+import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
+import InputForm from "../../UI/Inputs/InputForm/InputForm";
+import Select from "../../UI/Selects/Select/Select";
+import ItemListMobile from "../ItemListMobile/ItemListMobile";
+import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
+import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
 import ButtonSave from "../../UI/Buttons/ButtonSave/ButtonSave";
+import s from "./EditInvoiceMobile.module.scss";
 import { useDarkMode } from "../../hooks/useDarkMode";
 
-function EditInvoice({ active, setActive, newInvoice }) {
+function EditInvoiceMobile({ newInvoice }) {
 
     const isDarkMode = useDarkMode();
-
-    function getClasses(isDarkMode, active) {
-        if (isDarkMode) {
-            if (active) {
-                return s.wrapper + " " + s.wrapper_dark_mode + " " + s.active;
-            } else {
-                return s.wrapper + " " + s.wrapper_dark_mode;
-            }
-        } else {
-            return active ? s.wrapper + " " + s.active : s.wrapper;
-        }
-    }
 
     function getCaption(newInvoice) {
         if (newInvoice) {
@@ -44,50 +34,48 @@ function EditInvoice({ active, setActive, newInvoice }) {
     function getCommandPanel(newInvoice) {
         if (newInvoice) {
             return (
-                <div className={s.commandsNew}>
-                    <ButtonEdit onClick={() => setActive(false)}>Discard</ButtonEdit>
-                    <div className={s.save}>
-                        <ButtonSave>Save as Draft</ButtonSave>
-                        <ButtonMark onClick={() => setActive(false)}>Save & Send</ButtonMark>
-                    </div>
-                </div>
+                <section className={s.commandButtonsNew}>
+                    <ButtonEdit>Discard</ButtonEdit>
+                    <ButtonSave>Save as Draft</ButtonSave>
+                    <ButtonMark>Save & Send</ButtonMark>
+                </section>
             );
         } else {
             return (
-                <div className={s.commands}>
-                    <ButtonEdit onClick={() => setActive(false)}>Cancel</ButtonEdit>
-                    <ButtonMark onClick={() => setActive(false)}>Save Changes</ButtonMark>
-                </div>
+            <section className={s.commandButtons}>
+                <ButtonEdit>Cancel</ButtonEdit>
+                <ButtonMark>Save Changes</ButtonMark>
+            </section>
             );
         }
     }
 
     return (
-        <div className={getClasses(isDarkMode, active)}>
-            <div className={s.editInvoice}>
-
-                {getCaption(true)}
+        <div className={!isDarkMode ? s.editInvoiceMobile : s.editInvoiceMobile + " " + s.editInvoiceMobile_dark_mode}>
+            <div className={s.wrapper}>
+                <Link to="/invoices/RT3080">
+                    <ButtonGoBack />
+                </Link>
+                {getCaption(newInvoice)}
 
                 <form className={s.form}>
-
                     <div className={s.caption}>Bill From</div>
                     <section className={s.bill_from}>
                         <div className={s.wrapper_input}>
                             <InputForm placeholder="Street Address" id="street_adress" error="false" />
                         </div>
-                        <div className={s.city_code_country}>
-                            <div className={s.input30}>
+                        <div className={s.city_code}>
+                            <div className={s.input50}>
                                 <InputForm placeholder="City" id="city" error="false" />
                             </div>
-                            <div className={s.input30}>
+                            <div className={s.input50}>
                                 <InputForm placeholder="Post Code" id="post_code" error="false" />
                             </div>
-                            <div className={s.input30}>
-                                <InputForm placeholder="Country" id="country" error="false" />
-                            </div>
+                        </div>
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Country" id="country" error="false" />
                         </div>
                     </section>
-
                     <div className={s.caption}>Bill To</div>
                     <section className={s.bill_to}>
                         <div className={s.wrapper_input}>
@@ -99,45 +87,38 @@ function EditInvoice({ active, setActive, newInvoice }) {
                         <div className={s.wrapper_input}>
                             <InputForm placeholder="Street Address" id="street_adress_to" error="false" />
                         </div>
-
-                        <div className={s.city_code_country}>
-                            <div className={s.input30}>
+                        <div className={s.city_code}>
+                            <div className={s.input50}>
                                 <InputForm placeholder="City" id="city_to" error="false" />
                             </div>
-                            <div className={s.input30}>
+                            <div className={s.input50}>
                                 <InputForm placeholder="Post Code" id="post_code_to" error="false" />
                             </div>
-                            <div className={s.input30}>
-                                <InputForm placeholder="Country" id="country_to" error="false" />
-                            </div>
                         </div>
-
-                        <div className={s.date_payment}>
-                            <div className={s.input50}>
-                                <DatePicker placeholder="Invoice Date" id="invoice_date" error="true" />
-                            </div>
-                            <div className={s.input50}>
-                                <Select readOnly={true} placeholder="Payment Terms" id="payment_terms" error="false" />
-                            </div>
+                        <div className={s.wrapper_input}>
+                            <InputForm placeholder="Country" id="country_to" error="false" />
                         </div>
-
+                        <div className={s.wrapper_input}>
+                            <DatePicker placeholder="Invoice Date" id="invoice_date" error="true" />
+                        </div>
+                        <div className={s.wrapper_input}>
+                            <Select readOnly={true} placeholder="Payment Terms" id="payment_terms" error="false" />
+                        </div>
                         <div className={s.wrapper_input}>
                             <InputForm placeholder="Project Description" id="project_description" error="false" />
                         </div>
                     </section>
                     <section className={s.itemList}>
                         <div className={s.captionItemList}>Item List</div>
-                        <div className={s.table}>
-                            <ItemList />
-                        </div>
+                        <ItemListMobile />
                         <ButtonNewItem>+ Add New Item</ButtonNewItem>
+                        <div className={s.shadowBlock}></div>
                     </section>
+                    {getCommandPanel(newInvoice)}
                 </form>
-
-                {getCommandPanel(true)}
             </div>
         </div>
     )
 }
 
-export default EditInvoice;
+export default EditInvoiceMobile;

@@ -1,11 +1,12 @@
 @import "../../styles/variables.scss";
 
 .appBar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 103px;
     height: 100vh;
+    z-index: 10;
 
     background-color: #373b53;
     border-radius: 0px 20px 20px 0px;

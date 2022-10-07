@@ -15,8 +15,7 @@ function ViewInvoiceMobile() {
                 <Link to="/invoices">
                     <ButtonGoBack />
                 </Link>
-                <CommandPanelMobileTop />
-
+                <CommandPanelMobileTop/>
                 <div className={s.details}>
 
                     <div className={s.head}>
@@ -87,7 +86,7 @@ function ViewInvoiceMobile() {
 
                 </div>
             </div>
-            <CommandPanelMobileBottom />
+            <CommandPanelMobileBottom/>
         </>
     )
 

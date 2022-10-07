@@ -4,11 +4,11 @@ import ViewInvoiceMobile from "../../components/ViewInvoiceMobile/ViewInvoiceMob
 import { useElementWidth } from "../../hooks/useElementWidth";
 import { MOBILE_WIDTH } from "../../const";
 
-function ViewInvoicePage() {
+function ViewInvoicePage(props) {
 
   const [, width] = useElementWidth();
   
-  return (width <= MOBILE_WIDTH ? <ViewInvoiceMobile /> : <ViewInvoice />);
+  return (width <= MOBILE_WIDTH ? <ViewInvoiceMobile /> : <ViewInvoice {...props}/>);
 
 }
 

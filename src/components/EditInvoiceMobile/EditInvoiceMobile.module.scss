@@ -1,0 +1,119 @@
+@import "../../styles/variables.scss";
+
+.editInvoiceMobile {
+    margin-top: 72px;
+    width: 100vw;
+    background-color: white;
+
+    .wrapper {
+        padding-top: 32px;
+        margin-left: 24px;
+        margin-right: 24px;
+
+        .number {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 32px;
+            letter-spacing: -0.5px;
+            color: $color-dark-3;
+            margin-top: 24px;
+            margin-bottom: 24px;
+
+            .prefix {
+                color: $color-grey-dark;
+            }
+        }
+
+        .form {
+            .caption {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 12px;
+                line-height: 15px;
+                letter-spacing: -0.25px;
+                color: $color-violet-dark;
+                margin-bottom: 24px;
+            }
+            .wrapper_input {
+                width: 100%;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: stretch;
+                justify-content: space-between;
+                flex-direction: column;
+                margin-bottom: 24px;
+            }
+            .input50 {
+                width: 48%;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: stretch;
+                justify-content: space-between;
+                flex-direction: column;
+            }
+            .bill_from,
+            .bill_to {
+                .city_code {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: stretch;
+                    justify-content: space-between;
+                    margin-bottom: 24px;
+                }
+                margin-bottom: 40px;
+            }
+            .itemList {
+                padding-top: 26px;
+                .captionItemList {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 32px;
+                    letter-spacing: -0.375px;
+                    color: #777f98;
+                    padding-bottom: 16px;
+                }
+                .shadowBlock {
+                    width: 100%;
+                    height: 64px;
+                    margin-top: 24px;
+                    background-color: white;
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.1) 100%);
+                }
+            }
+            .commandButtons {
+                width: 100%;
+                padding-top: 21px;
+                padding-bottom: 21px;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+
+            .commandButtonsNew {
+                width: 100%;
+                padding-top: 21px;
+                padding-bottom: 21px;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: space-between;
+                gap: 7px;
+            }
+
+        }
+    }
+
+    &_dark_mode {
+        background-color: $color-dark-4;
+
+        .wrapper {
+            .number {
+                color: white;
+            }
+        }
+    }
+}
