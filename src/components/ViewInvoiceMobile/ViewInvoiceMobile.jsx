@@ -4,10 +4,13 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import { Link } from "react-router-dom";
 import CommandPanelMobileTop from "./CommandPanelMobile/CommandPanelMobileTop";
 import CommandPanelMobileBottom from "./CommandPanelMobile/CommandPanelMobileBottom";
+import { useState } from "react";
+import ConfirmDeletionModal from "../ConfirmDeletionModal/ConfirmDeletionModal";
 
 function ViewInvoiceMobile() {
 
     const isDarkMode = useDarkMode();
+    const [deleteActive, setdeleteActive] = useState(false);
 
     return (
         <>
@@ -16,6 +19,7 @@ function ViewInvoiceMobile() {
                     <ButtonGoBack />
                 </Link>
                 <CommandPanelMobileTop/>
+                <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
                 <div className={s.details}>
 
                     <div className={s.head}>
@@ -86,7 +90,7 @@ function ViewInvoiceMobile() {
 
                 </div>
             </div>
-            <CommandPanelMobileBottom/>
+            <CommandPanelMobileBottom deleteHandler={setdeleteActive}/>
         </>
     )
 

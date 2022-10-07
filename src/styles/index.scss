@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: "Spartan";
-  font-style: normal;
+  
   font-weight: 500;
   src: local(""),
     //url('../assets/fonts/Spartan-Medium-500.woff2') format('woff2'), /* Super Modern Browsers */
@@ -13,7 +13,7 @@
 
 @font-face {
   font-family: "Spartan";
-  font-style: normal;
+  
   font-weight: 700;
   src: local(""),
     //url('../assets/fonts/Spartan-Bold-700.woff2') format('woff2'), /* Super Modern Browsers */
@@ -23,6 +23,7 @@
 
 body {
   font-family: "Spartan", sans-serif;
+  
   background-color: var(#{--body-background-color});
 }
 
@@ -50,7 +51,7 @@ body {
 
 button {
   font-family: "Spartan", sans-serif;
-  font-style: normal;
+  
   font-weight: 700;
   font-size: 12px;
   line-height: 15px;
@@ -59,6 +60,7 @@ button {
 
 input {
   font-family: "Spartan", sans-serif;
+  
 }
 
 *,

@@ -6,7 +6,7 @@ import ButtonDelete from "../../../UI/Buttons/ButtonDelete/ButtonDelete";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Link } from "react-router-dom";
 
-export function CommandPanelMobileBottom() {
+export function CommandPanelMobileBottom({ deleteHandler }) {
 
     const isDarkMode = useDarkMode();
 
@@ -16,7 +16,7 @@ export function CommandPanelMobileBottom() {
                 <Link to="/invoices/RT3080/edit">
                     <ButtonEdit>Edit</ButtonEdit>
                 </Link>
-                <ButtonDelete>Delete</ButtonDelete>
+                <ButtonDelete onClick={() => deleteHandler(true)}>Delete</ButtonDelete>
                 <ButtonMark>Mark as Paid</ButtonMark>
             </div>
         </div>

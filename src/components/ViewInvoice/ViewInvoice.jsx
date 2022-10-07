@@ -5,19 +5,22 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import { Link } from "react-router-dom";
 import EditInvoice from "../EditInvoice/EditInvoice";
 import { useState } from "react";
+import ConfirmDeletionModal from "../ConfirmDeletionModal/ConfirmDeletionModal";
 
-function ViewInvoice({edit}) {
+function ViewInvoice({ edit }) {
 
     const isDarkMode = useDarkMode();
     const [viewActive, setViewActive] = useState(edit);
+    const [deleteActive, setdeleteActive] = useState(false);
 
     return (
         <div className={!isDarkMode ? s.editInvoice : s.editInvoice + " " + s.editInvoice_dark_mode}>
             <Link to="/invoices">
                 <ButtonGoBack />
             </Link>
-            <CommandPanel editHandler={setViewActive} />
+            <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} />
             <EditInvoice active={viewActive} setActive={setViewActive} />
+            <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
 
             <div className={s.details}>
 

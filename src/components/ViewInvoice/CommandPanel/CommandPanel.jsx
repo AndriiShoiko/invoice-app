@@ -6,7 +6,7 @@ import ButtonDelete from "../../../UI/Buttons/ButtonDelete/ButtonDelete";
 
 import { useDarkMode } from "../../../hooks/useDarkMode";
 
-function CommandPanel({ editHandler }) {
+function CommandPanel({ editHandler, deleteHandler }) {
 
     const isDarkMode = useDarkMode();
 
@@ -18,7 +18,7 @@ function CommandPanel({ editHandler }) {
             </div>
             <div className={s.right_block}>
                 <ButtonEdit onClick={() => editHandler(true)}>Edit</ButtonEdit>
-                <ButtonDelete>Delete</ButtonDelete>
+                <ButtonDelete  onClick={() => deleteHandler(true)}>Delete</ButtonDelete>
                 <ButtonMark>Mark as Paid</ButtonMark>
             </div>
         </div>
