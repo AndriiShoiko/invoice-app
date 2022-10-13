@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { getWorkMode } from "../store/workMode/workModeSelector";
-import { DARK_MODE } from "../store/workMode/workModeConst";
+import { workModeSelector } from "../store/slices/workModeSlice";
+import { DARK_MODE } from "../store/slices/workModeSlice";
 
 export function useDarkMode() {
-    const state = useSelector((store) => getWorkMode(store));
-    return state.workMode === DARK_MODE;
+    const workMode = useSelector((store) => workModeSelector(store));
+    return workMode === DARK_MODE;
 }

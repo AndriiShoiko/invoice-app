@@ -1,11 +1,11 @@
-import { legacy_createStore } from "redux";
-import { rootReducer } from "./rootReducer";
-import {DAY_MODE} from "./workMode/workModeConst";
+import { configureStore } from "@reduxjs/toolkit";
+import { workModeReducer } from "./slices/workModeSlice";
 
-const initState = {
-    workMode: DAY_MODE
-};
-
-export const store = legacy_createStore(rootReducer,
-    initState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+export const store = configureStore({
+    reducer: {
+        workMode: workModeReducer
+    },
+    devTools: true,
+    middleware: (getDeafaultMiddlware) => getDeafaultMiddlware(),
+    enhancers: []
+});
