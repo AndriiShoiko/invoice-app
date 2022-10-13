@@ -1,6 +1,6 @@
 import { legacy_createStore } from "redux";
 import { rootReducer } from "./rootReducer";
-import {DAY_MODE} from "./WorkMode/WorkModeConst";
+import {DAY_MODE} from "./workMode/workModeConst";
 
 const initState = {
     workMode: DAY_MODE

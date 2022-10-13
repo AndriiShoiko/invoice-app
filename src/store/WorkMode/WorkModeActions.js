@@ -1,4 +1,4 @@
-import { TOGGLE_MODE } from "./WorkModeConst";
+import { TOGGLE_MODE } from "./workModeConst";
 
 export function toggleWorkMode() {
     return {

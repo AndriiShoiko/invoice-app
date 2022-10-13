@@ -4,7 +4,7 @@ import switch_mode_night_logo from "../../assets/switch-mode-night.svg";
 import switch_mode_day_logo from "../../assets/switch-mode-day.svg";
 
 import { useDispatch } from "react-redux";
-import { toggleWorkMode } from "../../store/WorkMode/WorkModeActions";
+import { toggleWorkMode } from "../../store/workMode/workModeActions";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";

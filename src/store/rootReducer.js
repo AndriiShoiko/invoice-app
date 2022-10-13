@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { workModeReducer } from "./WorkMode/WorkModeReducer";
+import { workModeReducer } from "./workMode/workModeReducer";
 
 export const rootReducer = combineReducers({
     workMode: workModeReducer

@@ -1,5 +1,5 @@
 
-import { TOGGLE_MODE, DARK_MODE, DAY_MODE } from "./WorkModeConst";
+import { TOGGLE_MODE, DARK_MODE, DAY_MODE } from "./workModeConst";
 
 export function workModeReducer(state = DAY_MODE, action) {
 
