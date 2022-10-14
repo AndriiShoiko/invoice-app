@@ -39,7 +39,7 @@ function SelectFilter(props) {
             <img src={imageArrow} alt="arrow" />
             <div ref={selectMenuRef}
                 className={isOpen ? s.listItem + " " + s.listItem_visible : s.listItem}>
-                <CheckboxListItems statuses={props.statuses}/>
+                <CheckboxListItems statuses={props.statuses} onChange={props.onChange}/>
             </div>
         </div>
     )

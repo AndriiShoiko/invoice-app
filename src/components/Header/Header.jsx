@@ -5,10 +5,10 @@ import SelectFilter from "../../UI/Selects/SelectFilter/SelectFilter";
 import s from "./Header.module.scss";
 import { MOBILE_WIDTH } from "../../const";
 import { Link } from "react-router-dom";
-import { } from "redux";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadStatuses, statusesSelector } from "../../store/slices/statusesSlice";
+import { loadStatuses, statusesSelector, toggleSelectedStatus } from "../../store/slices/statusesSlice";
+import { invoicesSelector, loadInvoicesByFilters } from "../../store/slices/invoicesSlice";
 
 function Header() {
 
@@ -16,7 +16,15 @@ function Header() {
     const [, width] = useElementWidth();
 
     const dispatch = useDispatch();
+    
     const statuses = useSelector(state => statusesSelector(state));
+    const invoices = useSelector(state => invoicesSelector(state));
+    const totalInvoises = invoices.length; 
+
+    function onChangeHandlerFilter(element) {
+        dispatch(toggleSelectedStatus(element.target.id));
+        dispatch(loadInvoicesByFilters());
+    }
 
     useEffect(() => {
         const promise = dispatch(loadStatuses());
@@ -29,10 +37,12 @@ function Header() {
         <header className={!isDarkMode ? s.header : s.header + " " + s.header_dark_mode}>
             <div className={s.left_block}>
                 <h1>Invoices</h1>
-                <p> {width <= MOBILE_WIDTH ? "7 invoices" : "There are 7 total invoices"}</p>
+                <p> {width <= MOBILE_WIDTH ? `${totalInvoises} invoices` : `There are ${totalInvoises} total invoices`}</p>
             </div>
             <div className={s.right_block}>
-                <SelectFilter statuses = {statuses.entities}>{width <= MOBILE_WIDTH ? "Filter" : "Filter by status"}</SelectFilter>
+                <SelectFilter statuses={statuses.entities} onChange={onChangeHandlerFilter}>
+                    {width <= MOBILE_WIDTH ? "Filter" : "Filter by status"}
+                </SelectFilter>
                 <Link to="/invoices/new">
                     <ButtonNew>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
                 </Link>
