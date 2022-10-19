@@ -47,16 +47,20 @@ function InvoiceList() {
     }
 
     function showSkeleton() {
-        return (<InvoiceListSkeleton />);
+        return (
+            <div className={s.invoiceList}>
+                <InvoiceListSkeleton />
+            </div>
+        );
     }
 
     function showComponent() {
         if (invoices.loading === STATUS_LOADING) {
             return showSkeleton();
-        }
+         }
         if (invoices.loading === STATUS_IDLE) {
             return totalInvoises === 0 ? returnVoidList() : returnList();
-        }
+        } 
     }
 
     const invoices = useSelector(state => invoicesSelector(state));

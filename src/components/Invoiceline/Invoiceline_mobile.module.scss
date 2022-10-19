@@ -7,6 +7,9 @@
         padding-left: 24px;
         padding-right: 24px;
 
+        margin-left: 24px;
+        margin-right: 24px;
+
         .left_block {
             gap: 0;
             flex-direction: column;
@@ -21,7 +24,6 @@
             }
 
             .sum {
-                
                 font-weight: 700;
                 font-size: 16px;
                 line-height: 24px;
@@ -36,7 +38,6 @@
             align-items: flex-end;
 
             .customer {
-                
                 font-weight: 500;
                 font-size: 12px;
                 line-height: 15px;

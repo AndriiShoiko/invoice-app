@@ -16,10 +16,14 @@ function Header() {
     const [, width] = useElementWidth();
 
     const dispatch = useDispatch();
-    
+
     const statuses = useSelector(state => statusesSelector(state));
     const invoices = useSelector(state => invoicesSelector(state));
-    const totalInvoises = invoices.length; 
+
+    let totalInvoises = invoices.entities.length;
+     if (!totalInvoises) {
+        totalInvoises = 0;
+    } 
 
     function onChangeHandlerFilter(element) {
         dispatch(toggleSelectedStatus(element.target.id));
