@@ -1,6 +1,6 @@
 
 export function formatFieldToDate(value) {
-    return "Due " + new Date(value).toLocaleString('en-GB',
+    return "" + new Date(value).toLocaleString('en-GB',
         {
             day: 'numeric',
             month: 'short',

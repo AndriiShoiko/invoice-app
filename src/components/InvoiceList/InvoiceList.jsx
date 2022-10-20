@@ -28,7 +28,7 @@ function InvoiceList() {
                     return <Invoiceline
                         key={item.id}
                         number={item.id}
-                        date={formatFieldToDate(item.paymentDue)}
+                        date={"Due " + formatFieldToDate(item.paymentDue)}
                         customer={item.clientName}
                         sum={formatFieldToSum(item.total)}
                         chip={item.status}

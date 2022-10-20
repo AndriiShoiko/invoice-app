@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { endpointInvoices } from "../../utils/mockApi";
+import { getInvoices, getInvoiceById } from "../../utils/mockApi";
 
 export const STATUS_LOADING = "loading";
 export const STATUS_IDLE = "idle";
@@ -19,12 +18,6 @@ async function getSelectedStatuses(state) {
     return arrSelectedStatuses;
 }
 
-async function getInvoices() {
-    const res = await axios(endpointInvoices);
-    const data = await res.data;
-    return data;
-}
-
 export const loadInvoices = createAsyncThunk(
     '@@invoices/load-all',
     async () => {
@@ -41,18 +34,25 @@ export const loadInvoicesByFilters = createAsyncThunk(
         const statuses = await getSelectedStatuses(getState());
         const invoicesServer = await getInvoices();
 
-        if(!statuses.length) {
+        if (!statuses.length) {
             return invoicesServer;
         }
 
         invoicesServer.forEach((el) => {
             const findIndex = statuses.findIndex(st => st === el.status);
-            if(findIndex !== -1) {
+            if (findIndex !== -1) {
                 resultInvoices.push(el);
             }
         });
 
         return resultInvoices;
+    }
+);
+
+export const loadInvoiceById = createAsyncThunk(
+    '@@invoices/load-by-id',
+    async (id) => {
+        return getInvoiceById(id);
     }
 );
 
@@ -73,6 +73,15 @@ const statusesSlice = createSlice({
             .addCase(loadInvoicesByFilters.fulfilled, (state, action) => {
                 state.entities = action.payload;
             })
+            .addCase(loadInvoiceById.fulfilled, (state, action) => {
+                const id = action.payload.id;
+                const findIndex = state.entities.findIndex(ent => ent.id === id);
+                if (findIndex === -1) {
+                    state.entities.push(action.payload);
+                } else {
+                    state.entities[findIndex] = action.payload;
+                }
+            })
             .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
                 state.loading = STATUS_LOADING;
                 state.error = null;
@@ -89,6 +98,16 @@ const statusesSlice = createSlice({
 
 export function invoicesSelector(state) {
     return state.invoices;
+}
+
+export function invoicesSelectorById(state, id) {
+    
+    const findIndex = state.invoices.entities.findIndex(ent => ent.id === id);
+    if (findIndex !== -1) {
+        return state.invoices.entities[findIndex];
+    } 
+
+    return null;
 }
 
 export const invoicesReducer = statusesSlice.reducer;

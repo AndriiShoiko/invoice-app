@@ -1,15 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { endpointStatuses } from "../../utils/mockApi";
+import { getStatuses } from "../../utils/mockApi";
 
 const STATUS_LOADING = "loading";
 const STATUS_IDLE = "idle";
-
-async function getStatuses() {
-    const res = await axios(endpointStatuses);
-    const data = await res.data;
-    return data;
-}
 
 export const loadStatuses = createAsyncThunk(
     '@@statuses/load-all',
