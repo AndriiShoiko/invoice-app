@@ -1,14 +1,24 @@
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import s from "./InputForm.module.scss";
 
-function InputForm(props) {
+function InputForm({ error, id, labelText, register, ...props }) {
     const isDarkMode = useDarkMode();
     return (
         <>
-            <label {...props} htmlFor={props.id} className={!isDarkMode ? s.label : s.label + " " + s.label_dark_mode}>
-                {props.placeholder}
+            <label
+                htmlFor={id}
+                className={!isDarkMode ? s.label : s.label + " " + s.label_dark_mode}
+                error={error}
+            >
+                {labelText}
             </label>
-            <input {...props} type="text" className={!isDarkMode ? s.inputForm : s.inputForm + " " + s.inputForm_dark_mode} />
+            <input
+                id={id}
+                error={error}
+                {...register}
+                className={!isDarkMode ? s.inputForm : s.inputForm + " " + s.inputForm_dark_mode}
+                {...props}
+            />
         </>
     )
 }

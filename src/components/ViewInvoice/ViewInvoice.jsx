@@ -40,7 +40,7 @@ function ViewInvoice({ edit }) {
                 <ButtonGoBack />
             </Link>
             <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} status={dataInvoice.status} />
-            <EditInvoice active={viewActive} setActive={setViewActive} />
+            <EditInvoice active={viewActive} setActive={setViewActive} newInvoice={false} id={id} />
             <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
 
             <div className={s.details}>

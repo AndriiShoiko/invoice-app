@@ -3,7 +3,9 @@ import svg_image from "../../../assets/select-arrow.svg";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { useEffect, useRef, useState } from "react";
 
-function Select(props) {
+function Select({ error, id, labelText, defaultValue, arrValues, register, handlerSetValue, ...props }) {
+
+    const { ref, ...allRegister } = register;
 
     const isDarkMode = useDarkMode();
     const [isOpen, setOpen] = useState(false);
@@ -37,22 +39,44 @@ function Select(props) {
     function itemHandler(e) {
         if (selectMenuRef.current.contains(e.target)) {
             selectInput.current.value = e.target.outerText;
+            selectInput.current.defaultValue = e.target.outerText;
+            handlerSetValue(id, e.target.outerText);
+            console.log(selectInput);
             setOpen(false);
         }
     }
 
     return (
         <div className={!isDarkMode ? s.select : s.select + " " + s.select_dark_mode} ref={selectRef}>
-            <label {...props} htmlFor={props.id} className={s.label}>
-                {props.placeholder}
+            <label
+                htmlFor={id}
+                className={s.label}
+                error={error}
+            >
+                {labelText}
             </label>
-            <input {...props} type="text" className={s.input} ref={selectInput} />
+            <input
+                type="text"
+                className={s.input}
+                {...props}
+                {...allRegister}
+                ref={(e) => {
+                    ref(e);
+                    selectInput.current = e;
+                }}
+                defaultValue={`Net ${defaultValue} Day`
+                }
+                error={error}
+                onChange={(e) => console.log(e)}
+            />
+
             <img className={s.arrow_img} src={svg_image} alt="select" />
             <div className={isOpen ? s.options + " " + s.visible : s.options} ref={selectMenuRef} onClick={itemHandler}>
-                <div className={s.option}>Net 1 Day</div>
-                <div className={s.option}>Net 7 Days</div>
-                <div className={s.option}>Net 14 Days</div>
-                <div className={s.option}>Net 30 Days</div>
+                {arrValues.map((element) => {
+                    return (
+                        <div className={s.option} key={element.id}>{element.description}</div>
+                    );
+                })}
             </div>
         </div>
     )

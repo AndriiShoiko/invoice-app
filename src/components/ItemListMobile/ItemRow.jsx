@@ -5,15 +5,15 @@ function ItemRow() {
     return (
         <div className={s.itemRow}>
             <div className={s.wrapper_input}>
-                <InputForm placeholder="Item Name" id={"item_name1"} error="false" />
+                <InputForm labelText="Item Name" id={"item_name1"} error="false" />
             </div>
             <div className={s.qtyPriceTotal}>
                 <div className={s.qtyPrice}>
                     <div className={s.input40}>
-                        <InputForm placeholder="Qty." id={"qty1"} error="false" />
+                        <InputForm labelText="Qty." id={"qty1"} error="false" />
                     </div>
                     <div className={s.input60}>
-                        <InputForm placeholder="Price" id={"price1"} error="false" />
+                        <InputForm labelText="Price" id={"price1"} error="false" />
                     </div>
                 </div>
                 <div className={s.rightPart}>
