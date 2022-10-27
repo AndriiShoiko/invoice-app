@@ -11,21 +11,13 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { invoicesSelectorById, loadInvoiceById } from "../../store/slices/invoicesSlice";
-import {loadTerms, statusesSelector} from "../../store/slices/termsSlice";
-import { useForm } from "react-hook-form";
+import { loadTerms, statusesSelector } from "../../store/slices/termsSlice";
+import { useFieldArray, useForm } from "react-hook-form";
 
 function EditInvoice({ active, setActive, newInvoice, id }) {
 
     const isDarkMode = useDarkMode();
-
     const dispatch = useDispatch();
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue
-    } = useForm();
 
     useEffect(() => {
         const promiseInvoice = dispatch(loadInvoiceById(id));
@@ -38,6 +30,45 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
     const dataTerms = useSelector(state => statusesSelector(state));
+
+    const {
+        register,
+        control,
+        getValues,
+        handleSubmit,
+        formState: { errors },
+        setValue
+    } = useForm({
+        defaultValues: {
+            items: dataInvoice.items,
+            street_adress: dataInvoice.senderAddress.street,
+            city: dataInvoice.senderAddress.city,
+            post_code: dataInvoice.senderAddress.postCode,
+            country: dataInvoice.senderAddress.country,
+            client_name: dataInvoice.clientName,
+            client_email: dataInvoice.clientEmail,
+            street_adress_to: dataInvoice.clientAddress.street,
+            city_to: dataInvoice.clientAddress.city,
+            post_code_to: dataInvoice.clientAddress.postCode,
+            country_to: dataInvoice.clientAddress.country,
+            invoice_date: dataInvoice.createdAt,
+            payment_terms: dataInvoice.paymentTerms,
+            project_description: dataInvoice.description
+
+        }
+    });
+
+    const {
+        fields,
+        append,
+        remove
+    } = useFieldArray({
+        control,
+        name: "items",
+        rules: {
+            required: true
+        }
+    });
 
     if (!dataInvoice || !dataTerms) {
         return null;
@@ -92,6 +123,20 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
         }
     }
 
+    function showErrorTextToList() {
+        if (errors?.items) {
+            return (
+                <div className={s.showErrorList}>
+                    <p className={s.textError}>
+                        - All fields must be added
+                    </p>
+                </div>
+            )
+        }
+
+        return null;
+    }
+
     const onSubmit = (data) => {
         console.log(data);
     };
@@ -111,8 +156,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                 labelText="Street Address"
                                 id="street_adress"
                                 error={errors.street_adress ? "true" : "false"}
-                                defaultValue={dataInvoice.senderAddress.street}
-                                register={register("street_adress", { required: true, minLength: 1 })}
+                                textError={errors?.street_adress?.message || "Error!"}
+                                register={register("street_adress", { required: "can’t be empty" })}
                             />
                         </div>
                         <div className={s.city_code_country}>
@@ -121,8 +166,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="City"
                                     id="city"
                                     error={errors.city ? "true" : "false"}
-                                    defaultValue={dataInvoice.senderAddress.city}
-                                    register={register("city", { required: true, minLength: 1 })}
+                                    textError={errors?.senderAddress?.message || "Error!"}
+                                    register={register("city", { required: "can’t be empty" })}
                                 />
                             </div>
                             <div className={s.input30}>
@@ -130,8 +175,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="Post Code"
                                     id="post_code"
                                     error={errors.post_code ? "true" : "false"}
-                                    defaultValue={dataInvoice.senderAddress.postCode}
-                                    register={register("post_code", { required: true, minLength: 1 })}
+                                    textError={errors?.post_code?.message || "Error!"}
+                                    register={register("post_code", { required: "can’t be empty" })}
                                 />
                             </div>
                             <div className={s.input30}>
@@ -139,8 +184,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="Country"
                                     id="country"
                                     error={errors.country ? "true" : "false"}
-                                    defaultValue={dataInvoice.senderAddress.country}
-                                    register={register("country", { required: true, minLength: 1 })}
+                                    textError={errors?.country?.message || "Error!"}
+                                    register={register("country", { required: "can’t be empty" })}
                                 />
                             </div>
                         </div>
@@ -153,8 +198,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                 labelText="Client’s Name"
                                 id="client_name"
                                 error={errors.client_name ? "true" : "false"}
-                                defaultValue={dataInvoice.clientName}
-                                register={register("client_name", { required: true, minLength: 1 })}
+                                textError={errors?.client_name?.message || "Error!"}
+                                register={register("client_name", { required: "can’t be empty" })}
                             />
                         </div>
                         <div className={s.wrapper_input}>
@@ -162,8 +207,14 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                 labelText="Client’s Email"
                                 id="client_email"
                                 error={errors.client_email ? "true" : "false"}
-                                defaultValue={dataInvoice.clientEmail}
-                                register={register("client_email", { required: true, minLength: 1 })}
+                                textError={errors?.client_email?.message || "Error!"}
+                                register={register("client_email", {
+                                    required: "can’t be empty",
+                                    pattern: {
+                                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
+                                        message: "not correct e-mail"
+                                    }
+                                })}
                             />
                         </div>
                         <div className={s.wrapper_input}>
@@ -171,8 +222,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                 labelText="Street Address"
                                 id="street_adress_to"
                                 error={errors.street_adress_to ? "true" : "false"}
-                                defaultValue={dataInvoice.clientAddress.street}
-                                register={register("street_adress_to", { required: true, minLength: 1 })}
+                                textError={errors?.street_adress_to?.message || "Error!"}
+                                register={register("street_adress_to", { required: "can’t be empty" })}
 
                             />
                         </div>
@@ -183,8 +234,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="City"
                                     id="city_to"
                                     error={errors.city_to ? "true" : "false"}
-                                    defaultValue={dataInvoice.clientAddress.city}
-                                    register={register("city_to", { required: true, minLength: 1 })}
+                                    textError={errors?.city_to?.message || "Error!"}
+                                    register={register("city_to", { required: "can’t be empty" })}
 
                                 />
                             </div>
@@ -193,8 +244,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="Post Code"
                                     id="post_code_to"
                                     error={errors.post_code_to ? "true" : "false"}
-                                    defaultValue={dataInvoice.clientAddress.postCode}
-                                    register={register("post_code_to", { required: true, minLength: 1 })}
+                                    textError={errors?.post_code_to?.message || "Error!"}
+                                    register={register("post_code_to", { required: "can’t be empty" })}
                                 />
                             </div>
                             <div className={s.input30}>
@@ -202,8 +253,8 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="Country"
                                     id="country_to"
                                     error={errors.country_to ? "true" : "false"}
-                                    defaultValue={dataInvoice.clientAddress.country}
-                                    register={register("country_to", { required: true, minLength: 1 })}
+                                    textError={errors?.country_to?.message || "Error!"}
+                                    register={register("country_to", { required: "can’t be empty" })}
                                 />
                             </div>
                         </div>
@@ -214,7 +265,6 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="Invoice Date"
                                     id="invoice_date"
                                     error={errors.invoice_date ? "true" : "false"}
-                                    defaultValue={dataInvoice.createdAt}
                                     register={register("invoice_date", { required: true })}
 
                                 />
@@ -225,7 +275,6 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                     labelText="Payment Terms"
                                     id="payment_terms"
                                     error={errors.payment_terms ? "true" : "false"}
-                                    defaultValue={dataInvoice.paymentTerms}
                                     arrValues={dataTerms.entities}
                                     register={register("payment_terms", { required: true })}
                                     handlerSetValue={setValue}
@@ -238,17 +287,19 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                                 labelText="Project Description"
                                 id="project_description"
                                 error={errors.project_description ? "true" : "false"}
-                                defaultValue={dataInvoice.description}
-                                register={register("project_description", { required: true, minLength: 1 })}
+                                textError={errors?.project_description?.message || "Error!"}
+                                register={register("project_description", { required: "can’t be empty" })}
                             />
                         </div>
                     </section>
                     <section className={s.itemList}>
                         <div className={s.captionItemList}>Item List</div>
                         <div className={s.table}>
-                            <ItemList />
+                            <ItemList fields={fields} register={register} remove={remove}
+                                getValues={getValues} setValue={setValue} errors={errors} />
                         </div>
-                        <ButtonNewItem>+ Add New Item</ButtonNewItem>
+                        <ButtonNewItem onClick={() => append({ name: "", quantity: "", price: "", total: "" })}>+ Add New Item</ButtonNewItem>
+                        {showErrorTextToList()}
                     </section>
                     {getCommandPanel(newInvoice)}
                 </form>

@@ -1,7 +1,7 @@
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import s from "./InputForm.module.scss";
 
-function InputForm({ error, id, labelText, register, ...props }) {
+function InputForm({ error, id, labelText, register, textError, ...props }) {
     const isDarkMode = useDarkMode();
     return (
         <>
@@ -11,6 +11,9 @@ function InputForm({ error, id, labelText, register, ...props }) {
                 error={error}
             >
                 {labelText}
+                <p className={s.text_error} error={error}>
+                    {textError}
+                </p>
             </label>
             <input
                 id={id}

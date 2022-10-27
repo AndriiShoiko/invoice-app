@@ -39,7 +39,7 @@ function ViewInvoiceMobile() {
                 <Link to="/invoices">
                     <ButtonGoBack />
                 </Link>
-                <CommandPanelMobileTop status={dataInvoice.status}/>
+                <CommandPanelMobileTop status={dataInvoice.status} />
                 <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
                 <div className={s.details}>
 
@@ -108,7 +108,7 @@ function ViewInvoiceMobile() {
 
                 </div>
             </div>
-            <CommandPanelMobileBottom deleteHandler={setdeleteActive} />
+            <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} />
         </>
     )
 

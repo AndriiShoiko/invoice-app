@@ -9,7 +9,6 @@
     margin-bottom: -18px;
 
     th {
-        
         font-weight: 500;
         font-size: 12px;
         line-height: 15px;
@@ -19,17 +18,19 @@
     }
 
     td {
-        
-        font-weight: 700;
-        font-size: 12px;
-        line-height: 15px;
-        letter-spacing: -0.25px;
-        color: $color-dark-3;
-        padding: 17px 20px;
-
-        background-color: white;
-        border: 1px solid $color-grey-medium;
-        border-radius: 4px;
+        input {
+            width: 100%;
+            border: none;
+            background-color: white;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 15px;
+            letter-spacing: -0.25px;
+            color: $color-dark-3;
+            padding: 17px 20px;
+            border: 1px solid $color-grey-medium;
+            border-radius: 4px;
+        }
     }
 
     th:first-child,
@@ -38,30 +39,33 @@
     }
     th:nth-child(2),
     td:nth-child(2) {
-        width: 10%;
+        width: 15%;
     }
     th:nth-child(3),
     td:nth-child(3) {
-        width: 20%;
+        width: 22%;
     }
     th:nth-child(4),
     td:nth-child(4) {
         width: 20%;
-        border: none;
+        input {
+            border: none;
+            padding: 0;
+        }
     }
     th:nth-child(5),
     td:nth-child(5) {
-        width: 10%;
+        width: 3%;
         border: none;
         padding: 0;
     }
     th:nth-child(4) {
-        text-align: center;
+        text-align: left;
     }
     td:nth-child(5) {
         background-image: url("../../assets/trash.svg");
         background-repeat: no-repeat;
-        background-position: left;
+        background-position: right;
         cursor: pointer;
         transition: 0.2s all;
 
@@ -75,19 +79,25 @@
             color: $color-grey-medium;
         }
         td {
-            color: white;
-            background-color: $color-dark-1;
-            border: 1px solid $color-dark-2;
+            input {
+                color: white;
+                background-color: $color-dark-1;
+                border: 1px solid $color-dark-2;
+            }
         }
         th:nth-child(4),
         td:nth-child(4) {
-            border: none;
-            background-color: inherit;
+            input {
+                border: none;
+                background-color: inherit;
+            }
         }
         th:nth-child(5),
         td:nth-child(5) {
-            border: none;
-            background-color: inherit;
+            input {
+                border: none;
+                background-color: inherit;
+            }
         }
     }
 }

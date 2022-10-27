@@ -8,7 +8,6 @@
     padding-left: 20px;
     padding-right: 20px;
 
-    
     font-weight: 700;
     font-size: 12px;
     line-height: 15px;
@@ -16,7 +15,7 @@
     color: $color-dark-3;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         border: 1px solid $color-violet-medium;
     }
 
@@ -29,7 +28,7 @@
     }
 
     &_dark_mode {
-        background: $color-dark-1; 
+        background: $color-dark-1;
         border: 1px solid $color-dark-2;
         color: white;
     }
@@ -37,7 +36,7 @@
 
 .label {
     position: relative;
-    
+
     font-weight: 500;
     font-size: 12px;
     line-height: 15px;
@@ -49,11 +48,15 @@
         color: #ec5757;
     }
 
-    &[error="true"]::after {
-        content: "can’t be empty";
+    .text_error {
         position: absolute;
         top: 0;
         right: 0;
+        display: none;
+    }
+
+    .text_error[error="true"] {
+        display: block;
     }
 
     &_dark_mode {

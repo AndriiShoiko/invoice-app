@@ -41,7 +41,6 @@ function Select({ error, id, labelText, defaultValue, arrValues, register, handl
             selectInput.current.value = e.target.outerText;
             selectInput.current.defaultValue = e.target.outerText;
             handlerSetValue(id, e.target.outerText);
-            console.log(selectInput);
             setOpen(false);
         }
     }
@@ -67,7 +66,6 @@ function Select({ error, id, labelText, defaultValue, arrValues, register, handl
                 defaultValue={`Net ${defaultValue} Day`
                 }
                 error={error}
-                onChange={(e) => console.log(e)}
             />
 
             <img className={s.arrow_img} src={svg_image} alt="select" />

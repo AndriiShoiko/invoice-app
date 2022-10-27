@@ -11,8 +11,8 @@
         flex-direction: column;
         margin-bottom: 24px;
     }
-    .input50 {
-        width: 48%;
+    .input30 {
+        width: 28%;
         display: flex;
         flex-wrap: nowrap;
         align-items: stretch;
@@ -20,15 +20,7 @@
         flex-direction: column;
     }
     .input40 {
-        width: 38%;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: stretch;
-        justify-content: space-between;
-        flex-direction: column;
-    }
-    .input60 {
-        width: 56%;
+        width: 36%;
         display: flex;
         flex-wrap: nowrap;
         align-items: stretch;
@@ -43,65 +35,37 @@
         justify-content: space-between;
         margin-bottom: 24px;
         .qtyPrice {
-            width: 60%;
+            width: 90%;
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
             justify-content: space-between;
-        }
-        .rightPart {
-            width: 36%;
-            display: flex;
-            flex-wrap: nowrap;
-            align-items: flex-start;
-            justify-content: space-between;
-            flex-direction: column;
+
             .total {
-                display: flex;
-                flex-wrap: nowrap;
-                align-items: flex-start;
-                justify-content: flex-start;
-                flex-direction: column;
-                .caption {
-                    
-                    font-weight: 500;
-                    font-size: 12px;
-                    line-height: 15px;
-                    letter-spacing: -0.25px;
-                    color: $color-violet-light;
-                    height: 25px;
+                input {
+                    border: none;
+                    padding-left: 0;
+                    padding-right: 0;
                 }
             }
-            .row {
-                width: 100%;
-                display: flex;
-                flex-wrap: nowrap;
-                align-items: center;
-                justify-content: space-between;
-                height: 48px;
-                .sum {
-                    
-                    font-weight: 700;
-                    font-size: 12px;
-                    line-height: 15px;
-                    letter-spacing: -0.25px;
-                    color: #888eb0;
-                }
-                .trash {
-                    background-image: url("../../assets/trash.svg");
-                    background-repeat: no-repeat;
-                    background-position: left;
-                    cursor: pointer;
-                    transition: 0.2s all;
-                    width: 14px;
-                    height: 16px;
-                    margin-right: 15px;
-                }
+        }
+        .rightPart {
+            width: 10%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            .trash {
+                background-image: url("../../assets/trash.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+                transition: 0.2s all;
+                width: 14px;
+                height: 16px;
+                margin-top: 20px;
             }
         }
     }
-}
-
-.itemListMobile {
-
 }
