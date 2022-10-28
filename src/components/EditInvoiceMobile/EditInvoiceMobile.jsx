@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate  } from "react-router-dom";
 import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
 import ButtonNewItem from "../../UI/Buttons/ButtonNewItem/ButtonNewItem";
 import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
@@ -12,14 +12,16 @@ import s from "./EditInvoiceMobile.module.scss";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { invoicesSelectorById, loadInvoiceById } from "../../store/slices/invoicesSlice";
+import { invoicesSelectorById, loadInvoiceById, invoicesIsErrorSelector, updateInvoiceById } from "../../store/slices/invoicesSlice";
 import { loadTerms, statusesSelector } from "../../store/slices/termsSlice";
 import { useFieldArray, useForm } from "react-hook-form";
+import { checkFormatDate, convertFormDataToSend, convertPaymentTermsToView } from "../../utils/validation";
 
 function EditInvoiceMobile({ newInvoice }) {
 
     const isDarkMode = useDarkMode();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
@@ -34,6 +36,7 @@ function EditInvoiceMobile({ newInvoice }) {
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
     const dataTerms = useSelector(state => statusesSelector(state));
+    const isError = useSelector(state => invoicesIsErrorSelector(state));
 
     const {
         register,
@@ -55,9 +58,11 @@ function EditInvoiceMobile({ newInvoice }) {
             city_to: dataInvoice.clientAddress.city,
             post_code_to: dataInvoice.clientAddress.postCode,
             country_to: dataInvoice.clientAddress.country,
-            invoice_date: dataInvoice.createdAt,
-            payment_terms: dataInvoice.paymentTerms,
-            project_description: dataInvoice.description
+            invoice_date: checkFormatDate(dataInvoice.createdAt),
+            payment_terms: convertPaymentTermsToView(dataInvoice.paymentTerms),
+            project_description: dataInvoice.description,
+            status: dataInvoice.status,
+            id: id
 
         }
     });
@@ -80,6 +85,14 @@ function EditInvoiceMobile({ newInvoice }) {
                 <div className={s.showErrorList}>
                     <p className={s.textError}>
                         - All fields must be added
+                    </p>
+                </div>
+            )
+        } else if (isError) {
+            return (
+                <div className={s.showErrorList}>
+                    <p className={s.textError}>
+                        - Error updating data - try again later
                     </p>
                 </div>
             )
@@ -130,7 +143,12 @@ function EditInvoiceMobile({ newInvoice }) {
     }
 
     const onSubmit = (data) => {
-        console.log(data);
+        const dataToSend = convertFormDataToSend(data);
+        const props = { id, data: dataToSend };
+        dispatch(updateInvoiceById(props));
+        if(!isError) {
+            navigate(`/invoices/${id}`);
+        }
     };
 
     return (
