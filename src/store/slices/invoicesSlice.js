@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getInvoices, getInvoiceById } from "../../utils/mockApi";
+import { getInvoices, getInvoiceById, putInvoiceById } from "../../utils/mockApi";
 
 export const STATUS_LOADING = "loading";
 export const STATUS_IDLE = "idle";
@@ -56,6 +56,13 @@ export const loadInvoiceById = createAsyncThunk(
     }
 );
 
+export const updateInvoiceById = createAsyncThunk(
+    '@@invoices/update-by-id',
+    async (props) => {
+        return putInvoiceById(props.id, props.data);
+    }
+);
+
 const statusesSlice = createSlice({
     name: "@@invoices",
     initialState: {
@@ -82,16 +89,26 @@ const statusesSlice = createSlice({
                     state.entities[findIndex] = action.payload;
                 }
             })
+            .addCase(updateInvoiceById.fulfilled, (state, action) => {
+                const id = action.payload.id;
+                const findIndex = state.entities.findIndex(ent => ent.id === id);
+                if (findIndex === -1) {
+                    state.entities.push(action.payload);
+                } else {
+                    state.entities[findIndex] = action.payload;
+                }
+            })
             .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
                 state.loading = STATUS_LOADING;
                 state.error = null;
             })
             .addMatcher((action) => action.type.endsWith('/rejected'), (state) => {
                 state.loading = STATUS_IDLE;
-                state.error = "Error while getting invoices from server";
+                state.error = "Error while getting or update invoices from server";
             })
             .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
                 state.loading = STATUS_IDLE;
+                state.error = null;
             })
     }
 });
@@ -100,12 +117,16 @@ export function invoicesSelector(state) {
     return state.invoices;
 }
 
+export function invoicesIsErrorSelector(state) {
+    return state.invoices.error !== null;
+}
+
 export function invoicesSelectorById(state, id) {
-    
+
     const findIndex = state.invoices.entities.findIndex(ent => ent.id === id);
     if (findIndex !== -1) {
         return state.invoices.entities[findIndex];
-    } 
+    }
 
     return null;
 }

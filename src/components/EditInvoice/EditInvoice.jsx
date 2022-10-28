@@ -10,9 +10,10 @@ import ButtonSave from "../../UI/Buttons/ButtonSave/ButtonSave";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { invoicesSelectorById, loadInvoiceById } from "../../store/slices/invoicesSlice";
+import { invoicesSelectorById, invoicesIsErrorSelector, loadInvoiceById, updateInvoiceById } from "../../store/slices/invoicesSlice";
 import { loadTerms, statusesSelector } from "../../store/slices/termsSlice";
 import { useFieldArray, useForm } from "react-hook-form";
+import { checkFormatDate, convertFormDataToSend, convertPaymentTermsToView } from "../../utils/validation";
 
 function EditInvoice({ active, setActive, newInvoice, id }) {
 
@@ -29,6 +30,7 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
     }, [dispatch, id]);
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
+    const isError = useSelector(state => invoicesIsErrorSelector(state));
     const dataTerms = useSelector(state => statusesSelector(state));
 
     const {
@@ -51,10 +53,11 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
             city_to: dataInvoice.clientAddress.city,
             post_code_to: dataInvoice.clientAddress.postCode,
             country_to: dataInvoice.clientAddress.country,
-            invoice_date: dataInvoice.createdAt,
-            payment_terms: dataInvoice.paymentTerms,
-            project_description: dataInvoice.description
-
+            invoice_date: checkFormatDate(dataInvoice.createdAt),
+            payment_terms: convertPaymentTermsToView(dataInvoice.paymentTerms),
+            project_description: dataInvoice.description,
+            status: dataInvoice.status,
+            id: id
         }
     });
 
@@ -132,13 +135,27 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                     </p>
                 </div>
             )
+        } else if (isError) {
+            return (
+                <div className={s.showErrorList}>
+                    <p className={s.textError}>
+                        - Error updating data - try again later
+                    </p>
+                </div>
+            )
         }
 
         return null;
     }
 
-    const onSubmit = (data) => {
-        console.log(data);
+    function onSubmit(data) {
+
+        const dataToSend = convertFormDataToSend(data);
+        const props = { id, data: dataToSend };
+        dispatch(updateInvoiceById(props));
+        if(!isError) {
+            setActive(false);
+        }
     };
 
     return (
