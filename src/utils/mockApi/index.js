@@ -29,6 +29,12 @@ export async function postInvoice(invoiceData) {
     return data;
 }
 
+export async function deleteInvoice(id) {
+    const res = await axios.delete(endpointInvoices + "/" + id);
+    const data = await res.data;
+    return data;
+}
+
 //Statuses
 export async function getStatuses() {
     const res = await axios(endpointStatuses);

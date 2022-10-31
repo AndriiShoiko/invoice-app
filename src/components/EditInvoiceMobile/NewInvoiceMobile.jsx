@@ -1,22 +1,23 @@
-import s from "./EditInvoice.module.scss";
-import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
-import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
-import InputForm from "../../UI/Inputs/InputForm/InputForm";
-import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
-import Select from "../../UI/Selects/Select/Select";
-import ItemList from "../ItemList/ItemList";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
 import ButtonNewItem from "../../UI/Buttons/ButtonNewItem/ButtonNewItem";
+import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
+import InputForm from "../../UI/Inputs/InputForm/InputForm";
+import Select from "../../UI/Selects/Select/Select";
+import ItemListMobile from "../ItemListMobile/ItemListMobile";
+import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
+import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
 import ButtonSave from "../../UI/Buttons/ButtonSave/ButtonSave";
+import s from "./EditInvoiceMobile.module.scss";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { addInvoice, invoicesIsErrorSelector } from "../../store/slices/invoicesSlice";
+import { invoicesIsErrorSelector, addInvoice } from "../../store/slices/invoicesSlice";
 import { loadTerms, statusesSelector } from "../../store/slices/termsSlice";
 import { useFieldArray, useForm } from "react-hook-form";
 import { convertFormDataToSend, getEmptyFormData } from "../../utils/validation";
-import { useNavigate } from "react-router-dom";
 
-function NewInvoice() {
+function NewInvoiceMobile() {
 
     const isDarkMode = useDarkMode();
     const dispatch = useDispatch();
@@ -52,42 +53,10 @@ function NewInvoice() {
         return () => {
             promiseTerms.abort();
         }
-    }, [dispatch, reset]);
+    }, [dispatch]);
 
-    const isError = useSelector(state => invoicesIsErrorSelector(state));
     const dataTerms = useSelector(state => statusesSelector(state));
-
-    if (!dataTerms) {
-        return null;
-    }
-
-    function getClasses(isDarkMode) {
-        if (isDarkMode) {
-            return s.wrapper + " " + s.wrapper_dark_mode + " " + s.active;
-        } else {
-            return s.wrapper + " " + s.active;
-        }
-    }
-
-    function getCaption() {
-        return (
-            <header className={s.number}>
-                New Invoice
-            </header>
-        );
-    }
-
-    function getCommandPanel() {
-        return (
-            <div className={s.commandsNew}>
-                <ButtonEdit type="button" onClick={() => navigate(`/invoices/`)}>Discard</ButtonEdit>
-                <div className={s.save}>
-                    <ButtonSave type="submit">Save as Draft</ButtonSave>
-                    <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
-                </div>
-            </div>
-        );
-    }
+    const isError = useSelector(state => invoicesIsErrorSelector(state));
 
     function showErrorTextToList() {
         if (errors?.items) {
@@ -102,7 +71,7 @@ function NewInvoice() {
             return (
                 <div className={s.showErrorList}>
                     <p className={s.textError}>
-                        - Error create invoice - try again later
+                        - Error updating data - try again later
                     </p>
                 </div>
             )
@@ -111,26 +80,46 @@ function NewInvoice() {
         return null;
     }
 
-    function onSubmit(data) {
+    if (!dataTerms) {
+        return null;
+    }
 
+    function getCaption() {
+        return (
+            <header className={s.number}>
+                New Invoice
+            </header>
+        );
+    }
+
+    function getCommandPanel() {
+        return (
+            <section className={s.commandButtonsNew}>
+                <ButtonEdit type="button" onClick={() => Navigate(`/invoices/`)}>Discard</ButtonEdit>
+                <ButtonSave type="submit">Save as Draft</ButtonSave>
+                <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
+            </section>
+        );
+    }
+
+    const onSubmit = (data) => {
         const dataToSend = convertFormDataToSend(data, true);
-
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {
             navigate(`/invoices/`);
         }
-
     };
 
     return (
-        <div className={getClasses(isDarkMode)}>
-            <div className={s.editInvoice}>
-
+        <div className={!isDarkMode ? s.editInvoiceMobile : s.editInvoiceMobile + " " + s.editInvoiceMobile_dark_mode}>
+            <div className={s.wrapper}>
+                <Link to={`/invoices`}>
+                    <ButtonGoBack />
+                </Link>
                 {getCaption()}
 
                 <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-
                     <div className={s.caption}>Bill From</div>
                     <section className={s.bill_from}>
                         <div className={s.wrapper_input}>
@@ -142,8 +131,8 @@ function NewInvoice() {
                                 register={register("street_adress", { required: "can’t be empty" })}
                             />
                         </div>
-                        <div className={s.city_code_country}>
-                            <div className={s.input30}>
+                        <div className={s.city_code}>
+                            <div className={s.input50}>
                                 <InputForm
                                     labelText="City"
                                     id="city"
@@ -152,7 +141,7 @@ function NewInvoice() {
                                     register={register("city", { required: "can’t be empty" })}
                                 />
                             </div>
-                            <div className={s.input30}>
+                            <div className={s.input50}>
                                 <InputForm
                                     labelText="Post Code"
                                     id="post_code"
@@ -161,18 +150,17 @@ function NewInvoice() {
                                     register={register("post_code", { required: "can’t be empty" })}
                                 />
                             </div>
-                            <div className={s.input30}>
-                                <InputForm
-                                    labelText="Country"
-                                    id="country"
-                                    error={errors.country ? "true" : "false"}
-                                    textError={errors?.country?.message || "Error!"}
-                                    register={register("country", { required: "can’t be empty" })}
-                                />
-                            </div>
+                        </div>
+                        <div className={s.wrapper_input}>
+                            <InputForm
+                                labelText="Country"
+                                id="country"
+                                error={errors.country ? "true" : "false"}
+                                textError={errors?.country?.message || "Error!"}
+                                register={register("country", { required: "can’t be empty" })}
+                            />
                         </div>
                     </section>
-
                     <div className={s.caption}>Bill To</div>
                     <section className={s.bill_to}>
                         <div className={s.wrapper_input}>
@@ -209,9 +197,8 @@ function NewInvoice() {
 
                             />
                         </div>
-
-                        <div className={s.city_code_country}>
-                            <div className={s.input30}>
+                        <div className={s.city_code}>
+                            <div className={s.input50}>
                                 <InputForm
                                     labelText="City"
                                     id="city_to"
@@ -221,7 +208,7 @@ function NewInvoice() {
 
                                 />
                             </div>
-                            <div className={s.input30}>
+                            <div className={s.input50}>
                                 <InputForm
                                     labelText="Post Code"
                                     id="post_code_to"
@@ -230,40 +217,36 @@ function NewInvoice() {
                                     register={register("post_code_to", { required: "can’t be empty" })}
                                 />
                             </div>
-                            <div className={s.input30}>
-                                <InputForm
-                                    labelText="Country"
-                                    id="country_to"
-                                    error={errors.country_to ? "true" : "false"}
-                                    textError={errors?.country_to?.message || "Error!"}
-                                    register={register("country_to", { required: "can’t be empty" })}
-                                />
-                            </div>
                         </div>
-
-                        <div className={s.date_payment}>
-                            <div className={s.input50}>
-                                <DatePicker
-                                    labelText="Invoice Date"
-                                    id="invoice_date"
-                                    error={errors.invoice_date ? "true" : "false"}
-                                    register={register("invoice_date", { required: true })}
-
-                                />
-                            </div>
-                            <div className={s.input50}>
-                                <Select
-                                    readOnly={true}
-                                    labelText="Payment Terms"
-                                    id="payment_terms"
-                                    error={errors.payment_terms ? "true" : "false"}
-                                    arrValues={dataTerms.entities}
-                                    register={register("payment_terms", { required: true })}
-                                    handlerSetValue={setValue}
-                                />
-                            </div>
+                        <div className={s.wrapper_input}>
+                            <InputForm
+                                labelText="Country"
+                                id="country_to"
+                                error={errors.country_to ? "true" : "false"}
+                                textError={errors?.country_to?.message || "Error!"}
+                                register={register("country_to", { required: "can’t be empty" })}
+                            />
                         </div>
+                        <div className={s.wrapper_input}>
+                            <DatePicker
+                                labelText="Invoice Date"
+                                id="invoice_date"
+                                error={errors.invoice_date ? "true" : "false"}
+                                register={register("invoice_date", { required: true })}
 
+                            />
+                        </div>
+                        <div className={s.wrapper_input}>
+                            <Select
+                                readOnly={true}
+                                labelText="Payment Terms"
+                                id="payment_terms"
+                                error={errors.payment_terms ? "true" : "false"}
+                                arrValues={dataTerms.entities}
+                                register={register("payment_terms", { required: true })}
+                                handlerSetValue={setValue}
+                            />
+                        </div>
                         <div className={s.wrapper_input}>
                             <InputForm
                                 labelText="Project Description"
@@ -276,19 +259,18 @@ function NewInvoice() {
                     </section>
                     <section className={s.itemList}>
                         <div className={s.captionItemList}>Item List</div>
-                        <div className={s.table}>
-                            <ItemList fields={fields} register={register} remove={remove}
-                                getValues={getValues} setValue={setValue} errors={errors} />
-                        </div>
+                        <ItemListMobile fields={fields} register={register} remove={remove}
+                            getValues={getValues} setValue={setValue} errors={errors} />
                         <ButtonNewItem type="button" onClick={() => append({ name: "", quantity: "", price: "", total: "" })}>+ Add New Item</ButtonNewItem>
-                        {showErrorTextToList()}
+                        <div className={s.shadowBlock}>
+                            {showErrorTextToList()}
+                        </div>
                     </section>
                     {getCommandPanel()}
                 </form>
-
             </div>
         </div>
     )
 }
 
-export default NewInvoice;
+export default NewInvoiceMobile;

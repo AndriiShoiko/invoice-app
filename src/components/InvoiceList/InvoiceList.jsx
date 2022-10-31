@@ -3,7 +3,7 @@ import Invoiceline from "../Invoiceline/Invoiceline";
 import s from "./InvoiceList.module.scss";
 import InvoiceListVoid from "./InvoiceListVoid";
 import NewInvoice from "../EditInvoice/NewInvoice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { invoicesSelector, loadInvoices, STATUS_LOADING, STATUS_IDLE } from "../../store/slices/invoicesSlice";
 import { formatFieldToDate, formatFieldToSum } from "../../utils/formatting";
@@ -12,8 +12,6 @@ import InvoiceListSkeleton from "./InvoiceListSkeleton";
 function InvoiceList({ newInvoice }) {
 
     const dispatch = useDispatch();
-
-    const [newInvoiceActive, setNewInvoiceActive] = useState(newInvoice);
 
     useEffect(() => {
         const promise = dispatch(loadInvoices());
@@ -71,8 +69,8 @@ function InvoiceList({ newInvoice }) {
 
     return (
         <div className={s.wrapper}>
-            <Header setActive={setNewInvoiceActive} />
-            <NewInvoice active={newInvoiceActive} setActive={setNewInvoiceActive} />
+            <Header />
+            {newInvoice && <NewInvoice />}
             {showComponent()}
         </div>
     )

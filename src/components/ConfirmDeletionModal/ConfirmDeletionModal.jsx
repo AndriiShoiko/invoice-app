@@ -3,7 +3,7 @@ import ButtonDelete from "../../UI/Buttons/ButtonDelete/ButtonDelete";
 import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
 import s from "./ConfirmDeletionModal.module.scss";
 
-function ConfirmDeletionModal({ active, setActive }) {
+function ConfirmDeletionModal({ active, setActive, setConfirmDelete }) {
 
     const isDarkMode = useDarkMode();
 
@@ -26,7 +26,7 @@ function ConfirmDeletionModal({ active, setActive }) {
                 <p className={s.description}>Are you sure you want to delete invoice #XM9141? This action cannot be undone.</p>
                 <div className={s.commands}>
                     <ButtonEdit onClick={() => setActive(false)}>Cancel</ButtonEdit>
-                    <ButtonDelete>Delete</ButtonDelete>
+                    <ButtonDelete onClick={() => setConfirmDelete(true)}>Delete</ButtonDelete>
                 </div>
             </div>
         </div>

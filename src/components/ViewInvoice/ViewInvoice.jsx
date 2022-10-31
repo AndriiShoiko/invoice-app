@@ -2,13 +2,13 @@ import s from "./ViewInvoice.module.scss";
 import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
 import CommandPanel from "./CommandPanel/CommandPanel";
 import { useDarkMode } from "../../hooks/useDarkMode";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import EditInvoice from "../EditInvoice/EditInvoice";
 import { useState } from "react";
 import ConfirmDeletionModal from "../ConfirmDeletionModal/ConfirmDeletionModal";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadInvoiceById, invoicesSelectorById } from "../../store/slices/invoicesSlice";
+import { loadInvoiceById, invoicesSelectorById, removeInvoice, invoicesIsErrorSelector } from "../../store/slices/invoicesSlice";
 import { formatFieldToDate, formatFieldToSum } from "../../utils/formatting";
 
 function ViewInvoice({ edit }) {
@@ -16,6 +16,7 @@ function ViewInvoice({ edit }) {
     const isDarkMode = useDarkMode();
     const [viewActive, setViewActive] = useState(edit);
     const [deleteActive, setdeleteActive] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     const { id } = useParams();
 
@@ -27,6 +28,16 @@ function ViewInvoice({ edit }) {
             promise.abort();
         }
     }, [dispatch, id]);
+
+    const isError = useSelector(state => invoicesIsErrorSelector(state));
+    const navigate = useNavigate();
+
+    if(confirmDelete) {
+        dispatch(removeInvoice(id));
+        if(!isError) {
+            navigate(`/invoices`);
+        }
+    }
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
 
@@ -40,8 +51,8 @@ function ViewInvoice({ edit }) {
                 <ButtonGoBack />
             </Link>
             <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} status={dataInvoice.status} />
-            <EditInvoice active={viewActive} setActive={setViewActive} id={id} />
-            <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
+            {!confirmDelete && <EditInvoice active={viewActive} setActive={setViewActive} id={id} />}
+            <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} setConfirmDelete={setConfirmDelete} />
 
             <div className={s.details}>
 

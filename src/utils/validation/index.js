@@ -22,14 +22,14 @@ function makeNumber() {
     let text = "";
     const possiblePart1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const possiblePart2 = "0123456789";
-    
+
     for (var i = 0; i < 2; i++) {
         text += possiblePart1.charAt(Math.floor(Math.random() * possiblePart1.length));
     }
 
     for (var i = 0; i < 4; i++) {
         text += possiblePart2.charAt(Math.floor(Math.random() * possiblePart2.length));
-    }    
+    }
 
     return text;
 }
@@ -91,4 +91,25 @@ function convertPaymentTermsFromView(data) {
     }
 
     return Number(data.replace(/[^\d;]/g, ''));
+}
+
+export function getEmptyFormData() {
+    return {
+        items: [{ name: "", quantity: "", price: "", total: "" }],
+        street_adress: "",
+        city: "",
+        post_code: "",
+        country: "",
+        client_name: "",
+        client_email: "",
+        street_adress_to: "",
+        city_to: "",
+        post_code_to: "",
+        country_to: "",
+        invoice_date: getCurrentDate(),
+        payment_terms: convertPaymentTermsToView("7"),
+        project_description: "",
+        status: "Draft",
+        id: ""
+    }
 }

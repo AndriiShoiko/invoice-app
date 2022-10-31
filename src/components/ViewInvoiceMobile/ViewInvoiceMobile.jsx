@@ -1,20 +1,21 @@
 import s from "./ViewInvoiceMobile.module.scss";
 import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
 import { useDarkMode } from "../../hooks/useDarkMode";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CommandPanelMobileTop from "./CommandPanelMobile/CommandPanelMobileTop";
 import CommandPanelMobileBottom from "./CommandPanelMobile/CommandPanelMobileBottom";
 import { useState } from "react";
 import ConfirmDeletionModal from "../ConfirmDeletionModal/ConfirmDeletionModal";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadInvoiceById, invoicesSelectorById } from "../../store/slices/invoicesSlice";
+import { loadInvoiceById, invoicesSelectorById, removeInvoice, invoicesIsErrorSelector } from "../../store/slices/invoicesSlice";
 import { formatFieldToDate, formatFieldToSum } from "../../utils/formatting";
 
 function ViewInvoiceMobile() {
 
     const isDarkMode = useDarkMode();
     const [deleteActive, setdeleteActive] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
 
     const { id } = useParams();
 
@@ -26,6 +27,16 @@ function ViewInvoiceMobile() {
             promise.abort();
         }
     }, [dispatch, id]);
+
+    const isError = useSelector(state => invoicesIsErrorSelector(state));
+    const navigate = useNavigate();    
+    
+    if(confirmDelete) {
+        dispatch(removeInvoice(id));
+        if(!isError) {
+            navigate(`/invoices`);
+        }
+    }     
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
 
@@ -40,7 +51,7 @@ function ViewInvoiceMobile() {
                     <ButtonGoBack />
                 </Link>
                 <CommandPanelMobileTop status={dataInvoice.status} />
-                <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
+                <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} setConfirmDelete={setConfirmDelete} />
                 <div className={s.details}>
 
                     <div className={s.head}>
@@ -108,7 +119,7 @@ function ViewInvoiceMobile() {
 
                 </div>
             </div>
-            <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} />
+            {!confirmDelete && <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} />}
         </>
     )
 

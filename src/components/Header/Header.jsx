@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadStatuses, statusesSelector, toggleSelectedStatus } from "../../store/slices/statusesSlice";
 import { invoicesSelector, loadInvoicesByFilters } from "../../store/slices/invoicesSlice";
 
-function Header({ setActive }) {
+function Header() {
 
     const isDarkMode = useDarkMode();
     const [, width] = useElementWidth();
@@ -47,9 +47,9 @@ function Header({ setActive }) {
                 <SelectFilter statuses={statuses.entities} onChange={onChangeHandlerFilter}>
                     {width <= MOBILE_WIDTH ? "Filter" : "Filter by status"}
                 </SelectFilter>
-                {/* <Link to="/invoices/new"> */}
-                <ButtonNew onClick={() => setActive(true)}>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
-                {/*</Link>*/}
+                <Link to="/invoices/new">
+                    <ButtonNew>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
+                </Link>
             </div>
         </header>
     )
