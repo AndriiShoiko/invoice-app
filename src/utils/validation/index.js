@@ -1,14 +1,40 @@
 export function checkFormatDate(value) {
     let inputDate = new Date(value);
 
-    if (inputDate.getDate() < 10) {
-        return inputDate.getFullYear() + "-" + Number(inputDate.getMonth() + 1) + "-0" + inputDate.getDate();
+    return parsePartsOfDate(inputDate);
+}
+
+export function getCurrentDate() {
+    let currentDate = new Date();
+
+    return parsePartsOfDate(currentDate);
+}
+
+function parsePartsOfDate(date) {
+    if (date.getDate() < 10) {
+        return date.getFullYear() + "-" + Number(date.getMonth() + 1) + "-0" + date.getDate();
     } else {
-        return inputDate.getFullYear() + "-" + Number(inputDate.getMonth() + 1) + "-" + inputDate.getDate();
+        return date.getFullYear() + "-" + Number(date.getMonth() + 1) + "-" + date.getDate();
     }
 }
 
-export function convertFormDataToSend(formData ) {
+function makeNumber() {
+    let text = "";
+    const possiblePart1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const possiblePart2 = "0123456789";
+    
+    for (var i = 0; i < 2; i++) {
+        text += possiblePart1.charAt(Math.floor(Math.random() * possiblePart1.length));
+    }
+
+    for (var i = 0; i < 4; i++) {
+        text += possiblePart2.charAt(Math.floor(Math.random() * possiblePart2.length));
+    }    
+
+    return text;
+}
+
+export function convertFormDataToSend(formData, newInvoice = false) {
 
     let paymentDue = new Date(formData.invoice_date);
     paymentDue = new Date(paymentDue.setDate(paymentDue.getDate() + Number(convertPaymentTermsFromView(formData.payment_terms))));
@@ -23,6 +49,7 @@ export function convertFormDataToSend(formData ) {
 
     const data = {
         id: formData.id,
+        number: newInvoice ? makeNumber() : formData.number,
         status: formData.status,
         createdAt: formData.invoice_date,
         paymentDue: paymentDueToStr,
@@ -50,7 +77,7 @@ export function convertFormDataToSend(formData ) {
 }
 
 export function convertPaymentTermsToView(data) {
-    if(data < 2) {
+    if (data < 2) {
         return `Net ${data} Day`;
     } else {
         return `Net ${data} Days`;
@@ -59,7 +86,7 @@ export function convertPaymentTermsToView(data) {
 
 function convertPaymentTermsFromView(data) {
 
-    if(data === "") {
+    if (data === "") {
         return 0;
     }
 

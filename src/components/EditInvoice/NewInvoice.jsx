@@ -1,42 +1,42 @@
-import { Link, useParams, useNavigate  } from "react-router-dom";
-import ButtonGoBack from "../../UI/Buttons/ButtonGoBack/ButtonGoBack";
-import ButtonNewItem from "../../UI/Buttons/ButtonNewItem/ButtonNewItem";
-import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
-import InputForm from "../../UI/Inputs/InputForm/InputForm";
-import Select from "../../UI/Selects/Select/Select";
-import ItemListMobile from "../ItemListMobile/ItemListMobile";
-import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
+import s from "./EditInvoice.module.scss";
 import ButtonEdit from "../../UI/Buttons/ButtonEdit/ButtonEdit";
+import ButtonMark from "../../UI/Buttons/ButtonMark/ButtonMark";
+import InputForm from "../../UI/Inputs/InputForm/InputForm";
+import DatePicker from "../../UI/Inputs/DatePicker/DatePicker";
+import Select from "../../UI/Selects/Select/Select";
+import ItemList from "../ItemList/ItemList";
+import ButtonNewItem from "../../UI/Buttons/ButtonNewItem/ButtonNewItem";
 import ButtonSave from "../../UI/Buttons/ButtonSave/ButtonSave";
-import s from "./EditInvoiceMobile.module.scss";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { invoicesSelectorById, loadInvoiceById, invoicesIsErrorSelector, updateInvoiceById } from "../../store/slices/invoicesSlice";
+import { addInvoice, invoicesIsErrorSelector } from "../../store/slices/invoicesSlice";
 import { loadTerms, statusesSelector } from "../../store/slices/termsSlice";
 import { useFieldArray, useForm } from "react-hook-form";
-import { checkFormatDate, convertFormDataToSend, convertPaymentTermsToView } from "../../utils/validation";
+import { convertFormDataToSend, convertPaymentTermsToView, getCurrentDate } from "../../utils/validation";
 
-function EditInvoiceMobile({ newInvoice }) {
+function NewInvoice({ active, setActive }) {
 
     const isDarkMode = useDarkMode();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    const { id } = useParams();
-
-    useEffect(() => {
-        const promiseInvoice = dispatch(loadInvoiceById(id));
-        const promiseTerms = dispatch(loadTerms());
-        return () => {
-            promiseInvoice.abort();
-            promiseTerms.abort();
-        }
-    }, [dispatch, id]);
-
-    const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
-    const dataTerms = useSelector(state => statusesSelector(state));
-    const isError = useSelector(state => invoicesIsErrorSelector(state));
+    const defaultValues = {
+        items: [{ name: "", quantity: "", price: "", total: "" }],
+        street_adress: "",
+        city: "",
+        post_code: "",
+        country: "",
+        client_name: "",
+        client_email: "",
+        street_adress_to: "",
+        city_to: "",
+        post_code_to: "",
+        country_to: "",
+        invoice_date: getCurrentDate(),
+        payment_terms: convertPaymentTermsToView("7"),
+        project_description: "",
+        status: "Draft",
+        id: ""
+    };
 
     const {
         register,
@@ -44,28 +44,10 @@ function EditInvoiceMobile({ newInvoice }) {
         getValues,
         handleSubmit,
         formState: { errors },
-        setValue
+        setValue,
+        reset
     } = useForm({
-        defaultValues: {
-            items: dataInvoice.items,
-            street_adress: dataInvoice.senderAddress.street,
-            city: dataInvoice.senderAddress.city,
-            post_code: dataInvoice.senderAddress.postCode,
-            country: dataInvoice.senderAddress.country,
-            client_name: dataInvoice.clientName,
-            client_email: dataInvoice.clientEmail,
-            street_adress_to: dataInvoice.clientAddress.street,
-            city_to: dataInvoice.clientAddress.city,
-            post_code_to: dataInvoice.clientAddress.postCode,
-            country_to: dataInvoice.clientAddress.country,
-            invoice_date: checkFormatDate(dataInvoice.createdAt),
-            payment_terms: convertPaymentTermsToView(dataInvoice.paymentTerms),
-            project_description: dataInvoice.description,
-            status: dataInvoice.status,
-            number: dataInvoice.number,
-            id: id
-
-        }
+        defaultValues: defaultValues
     });
 
     const {
@@ -80,6 +62,53 @@ function EditInvoiceMobile({ newInvoice }) {
         }
     });
 
+    useEffect(() => {
+        const promiseTerms = dispatch(loadTerms());
+        reset(defaultValues);
+        return () => {
+            promiseTerms.abort();
+        }
+    }, [dispatch, active]);
+
+    const isError = useSelector(state => invoicesIsErrorSelector(state));
+    const dataTerms = useSelector(state => statusesSelector(state));
+
+    if (!dataTerms) {
+        return null;
+    }
+
+    function getClasses(isDarkMode, active) {
+        if (isDarkMode) {
+            if (active) {
+                return s.wrapper + " " + s.wrapper_dark_mode + " " + s.active;
+            } else {
+                return s.wrapper + " " + s.wrapper_dark_mode;
+            }
+        } else {
+            return active ? s.wrapper + " " + s.active : s.wrapper;
+        }
+    }
+
+    function getCaption() {
+        return (
+            <header className={s.number}>
+                New Invoice
+            </header>
+        );
+    }
+
+    function getCommandPanel() {
+        return (
+            <div className={s.commandsNew}>
+                <ButtonEdit type="button" onClick={() => setActive(false)}>Discard</ButtonEdit>
+                <div className={s.save}>
+                    <ButtonSave type="submit">Save as Draft</ButtonSave>
+                    <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
+                </div>
+            </div>
+        );
+    }
+
     function showErrorTextToList() {
         if (errors?.items) {
             return (
@@ -93,7 +122,7 @@ function EditInvoiceMobile({ newInvoice }) {
             return (
                 <div className={s.showErrorList}>
                     <p className={s.textError}>
-                        - Error updating data - try again later
+                        - Error create invoice - try again later
                     </p>
                 </div>
             )
@@ -102,65 +131,26 @@ function EditInvoiceMobile({ newInvoice }) {
         return null;
     }
 
-    if (!dataInvoice || !dataTerms) {
-        return null;
-    }
+    function onSubmit(data) {
 
-    function getCaption(newInvoice) {
-        if (newInvoice) {
-            return (
-                <header className={s.number}>
-                    New Invoice
-                </header>
-            );
-        } else {
-            return (
-                <header className={s.number}>
-                    Edit <span className={s.prefix}>#</span>XM9141
-                </header>
-            );
-        }
-    }
+        const dataToSend = convertFormDataToSend(data, true);
 
-    function getCommandPanel(newInvoice) {
-        if (newInvoice) {
-            return (
-                <section className={s.commandButtonsNew}>
-                    <ButtonEdit>Discard</ButtonEdit>
-                    <ButtonSave>Save as Draft</ButtonSave>
-                    <ButtonMark>Save & Send</ButtonMark>
-                </section>
-            );
-        } else {
-            return (
-                <section className={s.commandButtons}>
-                    <Link to={`/invoices/${id}`}>
-                        <ButtonEdit type="button">Cancel</ButtonEdit>
-                    </Link>
-                    <ButtonMark type="submit">Save Changes</ButtonMark>
-                </section>
-            );
-        }
-    }
+        dispatch(addInvoice(dataToSend));
 
-    const onSubmit = (data) => {
-        const dataToSend = convertFormDataToSend(data);
-        const props = { id, data: dataToSend };
-        dispatch(updateInvoiceById(props));
-        if(!isError) {
-            navigate(`/invoices/${id}`);
-        }
+        if (!isError) {
+            setActive(false);
+        } 
+
     };
 
     return (
-        <div className={!isDarkMode ? s.editInvoiceMobile : s.editInvoiceMobile + " " + s.editInvoiceMobile_dark_mode}>
-            <div className={s.wrapper}>
-                <Link to={`/invoices/${id}`}>
-                    <ButtonGoBack />
-                </Link>
-                {getCaption(newInvoice)}
+        <div className={getClasses(isDarkMode, active)}>
+            <div className={s.editInvoice}>
+
+                {getCaption()}
 
                 <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+
                     <div className={s.caption}>Bill From</div>
                     <section className={s.bill_from}>
                         <div className={s.wrapper_input}>
@@ -172,8 +162,8 @@ function EditInvoiceMobile({ newInvoice }) {
                                 register={register("street_adress", { required: "can’t be empty" })}
                             />
                         </div>
-                        <div className={s.city_code}>
-                            <div className={s.input50}>
+                        <div className={s.city_code_country}>
+                            <div className={s.input30}>
                                 <InputForm
                                     labelText="City"
                                     id="city"
@@ -182,7 +172,7 @@ function EditInvoiceMobile({ newInvoice }) {
                                     register={register("city", { required: "can’t be empty" })}
                                 />
                             </div>
-                            <div className={s.input50}>
+                            <div className={s.input30}>
                                 <InputForm
                                     labelText="Post Code"
                                     id="post_code"
@@ -191,17 +181,18 @@ function EditInvoiceMobile({ newInvoice }) {
                                     register={register("post_code", { required: "can’t be empty" })}
                                 />
                             </div>
-                        </div>
-                        <div className={s.wrapper_input}>
-                            <InputForm
-                                labelText="Country"
-                                id="country"
-                                error={errors.country ? "true" : "false"}
-                                textError={errors?.country?.message || "Error!"}
-                                register={register("country", { required: "can’t be empty" })}
-                            />
+                            <div className={s.input30}>
+                                <InputForm
+                                    labelText="Country"
+                                    id="country"
+                                    error={errors.country ? "true" : "false"}
+                                    textError={errors?.country?.message || "Error!"}
+                                    register={register("country", { required: "can’t be empty" })}
+                                />
+                            </div>
                         </div>
                     </section>
+
                     <div className={s.caption}>Bill To</div>
                     <section className={s.bill_to}>
                         <div className={s.wrapper_input}>
@@ -238,8 +229,9 @@ function EditInvoiceMobile({ newInvoice }) {
 
                             />
                         </div>
-                        <div className={s.city_code}>
-                            <div className={s.input50}>
+
+                        <div className={s.city_code_country}>
+                            <div className={s.input30}>
                                 <InputForm
                                     labelText="City"
                                     id="city_to"
@@ -249,7 +241,7 @@ function EditInvoiceMobile({ newInvoice }) {
 
                                 />
                             </div>
-                            <div className={s.input50}>
+                            <div className={s.input30}>
                                 <InputForm
                                     labelText="Post Code"
                                     id="post_code_to"
@@ -258,36 +250,40 @@ function EditInvoiceMobile({ newInvoice }) {
                                     register={register("post_code_to", { required: "can’t be empty" })}
                                 />
                             </div>
+                            <div className={s.input30}>
+                                <InputForm
+                                    labelText="Country"
+                                    id="country_to"
+                                    error={errors.country_to ? "true" : "false"}
+                                    textError={errors?.country_to?.message || "Error!"}
+                                    register={register("country_to", { required: "can’t be empty" })}
+                                />
+                            </div>
                         </div>
-                        <div className={s.wrapper_input}>
-                            <InputForm
-                                labelText="Country"
-                                id="country_to"
-                                error={errors.country_to ? "true" : "false"}
-                                textError={errors?.country_to?.message || "Error!"}
-                                register={register("country_to", { required: "can’t be empty" })}
-                            />
-                        </div>
-                        <div className={s.wrapper_input}>
-                            <DatePicker
-                                labelText="Invoice Date"
-                                id="invoice_date"
-                                error={errors.invoice_date ? "true" : "false"}
-                                register={register("invoice_date", { required: true })}
 
-                            />
+                        <div className={s.date_payment}>
+                            <div className={s.input50}>
+                                <DatePicker
+                                    labelText="Invoice Date"
+                                    id="invoice_date"
+                                    error={errors.invoice_date ? "true" : "false"}
+                                    register={register("invoice_date", { required: true })}
+
+                                />
+                            </div>
+                            <div className={s.input50}>
+                                <Select
+                                    readOnly={true}
+                                    labelText="Payment Terms"
+                                    id="payment_terms"
+                                    error={errors.payment_terms ? "true" : "false"}
+                                    arrValues={dataTerms.entities}
+                                    register={register("payment_terms", { required: true })}
+                                    handlerSetValue={setValue}
+                                />
+                            </div>
                         </div>
-                        <div className={s.wrapper_input}>
-                            <Select
-                                readOnly={true}
-                                labelText="Payment Terms"
-                                id="payment_terms"
-                                error={errors.payment_terms ? "true" : "false"}
-                                arrValues={dataTerms.entities}
-                                register={register("payment_terms", { required: true })}
-                                handlerSetValue={setValue}
-                            />
-                        </div>
+
                         <div className={s.wrapper_input}>
                             <InputForm
                                 labelText="Project Description"
@@ -300,18 +296,19 @@ function EditInvoiceMobile({ newInvoice }) {
                     </section>
                     <section className={s.itemList}>
                         <div className={s.captionItemList}>Item List</div>
-                        <ItemListMobile fields={fields} register={register} remove={remove}
-                            getValues={getValues} setValue={setValue} errors={errors} />
-                        <ButtonNewItem type="button" onClick={() => append({ name: "", quantity: "", price: "", total: "" })}>+ Add New Item</ButtonNewItem>
-                        <div className={s.shadowBlock}>
-                            {showErrorTextToList()}
+                        <div className={s.table}>
+                            <ItemList fields={fields} register={register} remove={remove}
+                                getValues={getValues} setValue={setValue} errors={errors} />
                         </div>
+                        <ButtonNewItem type="button" onClick={() => append({ name: "", quantity: "", price: "", total: "" })}>+ Add New Item</ButtonNewItem>
+                        {showErrorTextToList()}
                     </section>
-                    {getCommandPanel(newInvoice)}
+                    {getCommandPanel()}
                 </form>
+
             </div>
         </div>
     )
 }
 
-export default EditInvoiceMobile;
+export default NewInvoice;

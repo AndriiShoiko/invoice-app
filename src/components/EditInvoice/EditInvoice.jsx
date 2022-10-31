@@ -15,7 +15,7 @@ import { loadTerms, statusesSelector } from "../../store/slices/termsSlice";
 import { useFieldArray, useForm } from "react-hook-form";
 import { checkFormatDate, convertFormDataToSend, convertPaymentTermsToView } from "../../utils/validation";
 
-function EditInvoice({ active, setActive, newInvoice, id }) {
+function EditInvoice({ active, setActive, id }) {
 
     const isDarkMode = useDarkMode();
     const dispatch = useDispatch();
@@ -57,6 +57,7 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
             payment_terms: convertPaymentTermsToView(dataInvoice.paymentTerms),
             project_description: dataInvoice.description,
             status: dataInvoice.status,
+            number: dataInvoice.number,
             id: id
         }
     });
@@ -89,41 +90,21 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
         }
     }
 
-    function getCaption(newInvoice, id) {
-        if (newInvoice) {
-            return (
-                <header className={s.number}>
-                    New Invoice
-                </header>
-            );
-        } else {
-            return (
-                <header className={s.number}>
-                    Edit <span className={s.prefix}>#</span>{id}
-                </header>
-            );
-        }
+    function getCaption(number) {
+        return (
+            <header className={s.number}>
+                Edit <span className={s.prefix}>#</span>{number}
+            </header>
+        );
     }
 
-    function getCommandPanel(newInvoice) {
-        if (newInvoice) {
-            return (
-                <div className={s.commandsNew}>
-                    <ButtonEdit onClick={() => setActive(false)}>Discard</ButtonEdit>
-                    <div className={s.save}>
-                        <ButtonSave>Save as Draft</ButtonSave>
-                        <ButtonMark onClick={() => setActive(false)}>Save & Send</ButtonMark>
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <div className={s.commands}>
-                    <ButtonEdit type="button" onClick={() => setActive(false)}>Cancel</ButtonEdit>
-                    <ButtonMark type="submit">Save Changes</ButtonMark>
-                </div>
-            );
-        }
+    function getCommandPanel() {
+        return (
+            <div className={s.commands}>
+                <ButtonEdit type="button" onClick={() => setActive(false)}>Cancel</ButtonEdit>
+                <ButtonMark type="submit">Save Changes</ButtonMark>
+            </div>
+        );
     }
 
     function showErrorTextToList() {
@@ -153,7 +134,7 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
         const dataToSend = convertFormDataToSend(data);
         const props = { id, data: dataToSend };
         dispatch(updateInvoiceById(props));
-        if(!isError) {
+        if (!isError) {
             setActive(false);
         }
     };
@@ -162,7 +143,7 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
         <div className={getClasses(isDarkMode, active)}>
             <div className={s.editInvoice}>
 
-                {getCaption(newInvoice, id)}
+                {getCaption(dataInvoice.number)}
 
                 <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
 
@@ -315,10 +296,10 @@ function EditInvoice({ active, setActive, newInvoice, id }) {
                             <ItemList fields={fields} register={register} remove={remove}
                                 getValues={getValues} setValue={setValue} errors={errors} />
                         </div>
-                        <ButtonNewItem onClick={() => append({ name: "", quantity: "", price: "", total: "" })}>+ Add New Item</ButtonNewItem>
+                        <ButtonNewItem type="button" onClick={() => append({ name: "", quantity: "", price: "", total: "" })}>+ Add New Item</ButtonNewItem>
                         {showErrorTextToList()}
                     </section>
-                    {getCommandPanel(newInvoice)}
+                    {getCommandPanel()}
                 </form>
 
             </div>

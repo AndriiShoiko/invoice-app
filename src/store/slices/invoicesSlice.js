@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getInvoices, getInvoiceById, putInvoiceById } from "../../utils/mockApi";
+import { getInvoices, getInvoiceById, putInvoiceById, postInvoice } from "../../utils/mockApi";
 
 export const STATUS_LOADING = "loading";
 export const STATUS_IDLE = "idle";
@@ -63,6 +63,13 @@ export const updateInvoiceById = createAsyncThunk(
     }
 );
 
+export const addInvoice = createAsyncThunk(
+    '@@invoices/add',
+    async (data) => {
+        return postInvoice(data);
+    }
+);
+
 const statusesSlice = createSlice({
     name: "@@invoices",
     initialState: {
@@ -97,6 +104,9 @@ const statusesSlice = createSlice({
                 } else {
                     state.entities[findIndex] = action.payload;
                 }
+            })
+            .addCase(addInvoice.fulfilled, (state, action) => {
+                state.entities.push(action.payload);
             })
             .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
                 state.loading = STATUS_LOADING;

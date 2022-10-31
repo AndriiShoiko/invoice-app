@@ -2,15 +2,18 @@ import Header from "../Header/Header";
 import Invoiceline from "../Invoiceline/Invoiceline";
 import s from "./InvoiceList.module.scss";
 import InvoiceListVoid from "./InvoiceListVoid";
-import { useEffect } from "react";
+import NewInvoice from "../EditInvoice/NewInvoice";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { invoicesSelector, loadInvoices, STATUS_LOADING, STATUS_IDLE } from "../../store/slices/invoicesSlice";
 import { formatFieldToDate, formatFieldToSum } from "../../utils/formatting";
 import InvoiceListSkeleton from "./InvoiceListSkeleton";
 
-function InvoiceList() {
+function InvoiceList({ newInvoice }) {
 
     const dispatch = useDispatch();
+
+    const [newInvoiceActive, setNewInvoiceActive] = useState(newInvoice);
 
     useEffect(() => {
         const promise = dispatch(loadInvoices());
@@ -23,11 +26,11 @@ function InvoiceList() {
     function returnList() {
         return (
             <div className={s.invoiceList}>
-
                 {invoices.entities.map((item) => {
                     return <Invoiceline
+                        id={item.id}
                         key={item.id}
-                        number={item.id}
+                        number={item.number}
                         date={"Due " + formatFieldToDate(item.paymentDue)}
                         customer={item.clientName}
                         sum={formatFieldToSum(item.total)}
@@ -57,10 +60,10 @@ function InvoiceList() {
     function showComponent() {
         if (invoices.loading === STATUS_LOADING) {
             return showSkeleton();
-         }
+        }
         if (invoices.loading === STATUS_IDLE) {
             return totalInvoises === 0 ? returnVoidList() : returnList();
-        } 
+        }
     }
 
     const invoices = useSelector(state => invoicesSelector(state));
@@ -68,7 +71,8 @@ function InvoiceList() {
 
     return (
         <div className={s.wrapper}>
-            <Header />
+            <Header setActive={setNewInvoiceActive} />
+            <NewInvoice active={newInvoiceActive} setActive={setNewInvoiceActive} />
             {showComponent()}
         </div>
     )

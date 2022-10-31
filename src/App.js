@@ -16,7 +16,7 @@ function App() {
           <Route path="invoices" element={<InvoicesPage />} />
           <Route path="invoices/:id" element={<ViewInvoicePage />} />
           <Route path="invoices/:id/edit" element={<EditInvoicePage />} />
-          <Route path="invoices/new" element={<NewInvoicePage />} />
+          {/* <Route path="invoices/new" element={<NewInvoicePage />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

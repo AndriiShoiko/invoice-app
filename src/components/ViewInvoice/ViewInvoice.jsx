@@ -40,14 +40,14 @@ function ViewInvoice({ edit }) {
                 <ButtonGoBack />
             </Link>
             <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} status={dataInvoice.status} />
-            <EditInvoice active={viewActive} setActive={setViewActive} newInvoice={false} id={id} />
+            <EditInvoice active={viewActive} setActive={setViewActive} id={id} />
             <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} />
 
             <div className={s.details}>
 
                 <div className={s.head}>
                     <div className={s.left_part}>
-                        <h2 className={s.number}><span>#</span>{dataInvoice.id}</h2>
+                        <h2 className={s.number}><span>#</span>{dataInvoice.number}</h2>
                         <p className={s.service}>{dataInvoice.description}</p>
                     </div>
                     <div className={s.right_part}>

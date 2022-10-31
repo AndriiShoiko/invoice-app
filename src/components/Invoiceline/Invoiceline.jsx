@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function Invoiceline(props) {
 
-    const { number, date, customer, sum, chip } = props;
+    const { number, date, customer, sum, chip, id } = props;
 
     const isDarkMode = useDarkMode();
     const [, width] = useElementWidth();
@@ -18,7 +18,7 @@ function Invoiceline(props) {
     return (
         <div className={!isDarkMode ? s.invoiceline : s.invoiceline + " " + s.invoiceline_dark_mode}
             onClick={
-                () => navigate("/invoices/" + number)
+                () => navigate("/invoices/" + id)
             }>
             <div className={s.left_block}>
                 <div className={s.number}>
