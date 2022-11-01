@@ -95,9 +95,9 @@ function NewInvoiceMobile() {
     function getCommandPanel() {
         return (
             <section className={s.commandButtonsNew}>
-                <ButtonEdit type="button" onClick={() => Navigate(`/invoice-app/`)}>Discard</ButtonEdit>
+                <ButtonEdit type="button" onClick={() => navigate(`/invoice-app/`)}>Discard</ButtonEdit>
                 <ButtonSave type="button" onClick={saveAsDraftHandler}>Save as Draft</ButtonSave>
-                <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
+                <ButtonMark type="submit" onClick={() => setValue("status", "pending")}>Save & Send</ButtonMark>
             </section>
         );
     }
