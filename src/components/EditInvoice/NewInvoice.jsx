@@ -82,7 +82,7 @@ function NewInvoice() {
             <div className={s.commandsNew}>
                 <ButtonEdit type="button" onClick={() => navigate(`/invoices/`)}>Discard</ButtonEdit>
                 <div className={s.save}>
-                    <ButtonSave type="submit">Save as Draft</ButtonSave>
+                    <ButtonSave type="button" onClick={saveAsDraftHandler}>Save as Draft</ButtonSave>
                     <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
                 </div>
             </div>
@@ -122,6 +122,17 @@ function NewInvoice() {
         }
 
     };
+
+    function saveAsDraftHandler() {
+
+        const dataToSend = convertFormDataToSend(getValues(), true);
+        dispatch(addInvoice(dataToSend));
+
+        if (!isError) {
+            navigate(`/invoices/`);
+        }
+
+    }
 
     return (
         <div className={getClasses(isDarkMode)}>

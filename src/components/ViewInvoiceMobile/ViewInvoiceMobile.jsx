@@ -29,18 +29,18 @@ function ViewInvoiceMobile() {
     }, [dispatch, id]);
 
     const isError = useSelector(state => invoicesIsErrorSelector(state));
-    const navigate = useNavigate();    
-    
-    if(confirmDelete) {
+    const navigate = useNavigate();
+
+    if (confirmDelete) {
         dispatch(removeInvoice(id));
-        if(!isError) {
+        if (!isError) {
             navigate(`/invoices`);
         }
-    }     
+    }
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
 
-    if (!dataInvoice) {
+    if (!dataInvoice || confirmDelete) {
         return null;
     }
 
@@ -119,7 +119,7 @@ function ViewInvoiceMobile() {
 
                 </div>
             </div>
-            {!confirmDelete && <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} />}
+            <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} status={dataInvoice.status} />
         </>
     )
 

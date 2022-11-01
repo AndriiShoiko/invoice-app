@@ -41,7 +41,7 @@ function ViewInvoice({ edit }) {
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
 
-    if (!dataInvoice) {
+    if (!dataInvoice || confirmDelete) {
         return null;
     }
 
@@ -51,7 +51,7 @@ function ViewInvoice({ edit }) {
                 <ButtonGoBack />
             </Link>
             <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} status={dataInvoice.status} />
-            {!confirmDelete && <EditInvoice active={viewActive} setActive={setViewActive} id={id} />}
+            <EditInvoice active={viewActive} setActive={setViewActive} id={id} />
             <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} setConfirmDelete={setConfirmDelete} />
 
             <div className={s.details}>

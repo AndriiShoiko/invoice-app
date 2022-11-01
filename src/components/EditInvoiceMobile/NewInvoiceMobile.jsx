@@ -96,7 +96,7 @@ function NewInvoiceMobile() {
         return (
             <section className={s.commandButtonsNew}>
                 <ButtonEdit type="button" onClick={() => Navigate(`/invoices/`)}>Discard</ButtonEdit>
-                <ButtonSave type="submit">Save as Draft</ButtonSave>
+                <ButtonSave type="button" onClick={saveAsDraftHandler}>Save as Draft</ButtonSave>
                 <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
             </section>
         );
@@ -110,6 +110,17 @@ function NewInvoiceMobile() {
             navigate(`/invoices/`);
         }
     };
+
+    function saveAsDraftHandler() {
+
+        const dataToSend = convertFormDataToSend(getValues(), true);
+        dispatch(addInvoice(dataToSend));
+
+        if (!isError) {
+            navigate(`/invoices/`);
+        }
+
+    }
 
     return (
         <div className={!isDarkMode ? s.editInvoiceMobile : s.editInvoiceMobile + " " + s.editInvoiceMobile_dark_mode}>
