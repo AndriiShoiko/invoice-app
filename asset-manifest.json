@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/invoice-app/static/css/main.e854be1c.css",
-    "main.js": "/invoice-app/static/js/main.75eeb140.js",
+    "main.js": "/invoice-app/static/js/main.8b26f21b.js",
     "static/media/email-flatline.svg": "/invoice-app/static/media/email-flatline.86671679a783bcbf513b20a1b6bcf8bd.svg",
     "static/media/Spartan-Bold-700.ttf": "/invoice-app/static/media/Spartan-Bold-700.cc267879f2ab8481c3cc.ttf",
     "static/media/Spartan-Medium-500.ttf": "/invoice-app/static/media/Spartan-Medium-500.cd41b6e6724ed2f42600.ttf",
@@ -19,10 +19,10 @@
     "static/media/select-arrow.svg": "/invoice-app/static/media/select-arrow.79415416c6ee4ae9d80046576968154e.svg",
     "static/media/invoice-arrow.svg": "/invoice-app/static/media/invoice-arrow.b8ef255f647e0f03b8a58f8ccbd8db48.svg",
     "main.e854be1c.css.map": "/invoice-app/static/css/main.e854be1c.css.map",
-    "main.75eeb140.js.map": "/invoice-app/static/js/main.75eeb140.js.map"
+    "main.8b26f21b.js.map": "/invoice-app/static/js/main.8b26f21b.js.map"
   },
   "entrypoints": [
     "static/css/main.e854be1c.css",
-    "static/js/main.75eeb140.js"
+    "static/js/main.8b26f21b.js"
   ]
 }
