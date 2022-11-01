@@ -18,7 +18,7 @@ function Invoiceline(props) {
     return (
         <div className={!isDarkMode ? s.invoiceline : s.invoiceline + " " + s.invoiceline_dark_mode}
             onClick={
-                () => navigate("/invoices/" + id)
+                () => navigate("/invoice-app/" + id)
             }>
             <div className={s.left_block}>
                 <div className={s.number}>

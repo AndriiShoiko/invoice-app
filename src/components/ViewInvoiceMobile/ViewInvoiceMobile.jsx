@@ -34,7 +34,7 @@ function ViewInvoiceMobile() {
     if (confirmDelete) {
         dispatch(removeInvoice(id));
         if (!isError) {
-            navigate(`/invoices`);
+            navigate(`/invoice-app`);
         }
     }
 
@@ -47,7 +47,7 @@ function ViewInvoiceMobile() {
     return (
         <>
             <div className={!isDarkMode ? s.editInvoice : s.editInvoice + " " + s.editInvoice_dark_mode}>
-                <Link to="/invoices">
+                <Link to="/invoice-app">
                     <ButtonGoBack />
                 </Link>
                 <CommandPanelMobileTop status={dataInvoice.status} />

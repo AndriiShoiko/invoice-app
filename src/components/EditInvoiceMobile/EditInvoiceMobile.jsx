@@ -134,7 +134,7 @@ function EditInvoiceMobile({ newInvoice }) {
         } else {
             return (
                 <section className={s.commandButtons}>
-                    <Link to={`/invoices/${id}`}>
+                    <Link to={`/invoice-app/${id}`}>
                         <ButtonEdit type="button">Cancel</ButtonEdit>
                     </Link>
                     <ButtonMark type="submit">Save Changes</ButtonMark>
@@ -148,14 +148,14 @@ function EditInvoiceMobile({ newInvoice }) {
         const props = { id, data: dataToSend };
         dispatch(updateInvoiceById(props));
         if(!isError) {
-            navigate(`/invoices/${id}`);
+            navigate(`/invoice-app/${id}`);
         }
     };
 
     return (
         <div className={!isDarkMode ? s.editInvoiceMobile : s.editInvoiceMobile + " " + s.editInvoiceMobile_dark_mode}>
             <div className={s.wrapper}>
-                <Link to={`/invoices/${id}`}>
+                <Link to={`/invoice-app/${id}`}>
                     <ButtonGoBack />
                 </Link>
                 {getCaption(newInvoice)}

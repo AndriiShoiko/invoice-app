@@ -26,7 +26,7 @@ function AppBar() {
     return (
         <div className={!isDarkMode ? s.appBar : s.appBar + " " + s.appBar_dark_mode}>
             <div className={s.logo} onClick={
-                () => navigate("/invoices/")
+                () => navigate("/invoice-app/")
             }></div>
             <div className={s.menu}>
                 <div className={s.icon}>

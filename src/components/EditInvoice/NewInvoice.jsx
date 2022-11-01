@@ -80,7 +80,7 @@ function NewInvoice() {
     function getCommandPanel() {
         return (
             <div className={s.commandsNew}>
-                <ButtonEdit type="button" onClick={() => navigate(`/invoices/`)}>Discard</ButtonEdit>
+                <ButtonEdit type="button" onClick={() => navigate(`/invoice-app/`)}>Discard</ButtonEdit>
                 <div className={s.save}>
                     <ButtonSave type="button" onClick={saveAsDraftHandler}>Save as Draft</ButtonSave>
                     <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
@@ -118,7 +118,7 @@ function NewInvoice() {
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {
-            navigate(`/invoices/`);
+            navigate(`/invoice-app/`);
         }
 
     };
@@ -129,7 +129,7 @@ function NewInvoice() {
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {
-            navigate(`/invoices/`);
+            navigate(`/invoice-app/`);
         }
 
     }

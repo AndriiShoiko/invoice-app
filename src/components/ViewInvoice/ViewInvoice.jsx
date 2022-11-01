@@ -35,7 +35,7 @@ function ViewInvoice({ edit }) {
     if(confirmDelete) {
         dispatch(removeInvoice(id));
         if(!isError) {
-            navigate(`/invoices`);
+            navigate(`/invoice-app`);
         }
     }
 
@@ -47,7 +47,7 @@ function ViewInvoice({ edit }) {
 
     return (
         <div className={!isDarkMode ? s.editInvoice : s.editInvoice + " " + s.editInvoice_dark_mode}>
-            <Link to="/invoices">
+            <Link to="/invoice-app">
                 <ButtonGoBack />
             </Link>
             <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} status={dataInvoice.status} />

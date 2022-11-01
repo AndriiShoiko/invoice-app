@@ -47,7 +47,7 @@ function Header() {
                 <SelectFilter statuses={statuses.entities} onChange={onChangeHandlerFilter}>
                     {width <= MOBILE_WIDTH ? "Filter" : "Filter by status"}
                 </SelectFilter>
-                <Link to="/invoices/new">
+                <Link to="/invoice-app/new">
                     <ButtonNew>{width <= MOBILE_WIDTH ? "New" : "New Invoice"}</ButtonNew>
                 </Link>
             </div>

@@ -12,11 +12,10 @@ function App() {
       <BrowserRouter>
       <AppBar />
         <Routes>
-          <Route path="/" element={<Navigate to="invoices" replace />} />
-          <Route path="invoices" element={<InvoicesPage />} />
-          <Route path="invoices/:id" element={<ViewInvoicePage />} />
-          <Route path="invoices/:id/edit" element={<EditInvoicePage />} />
-          <Route path="invoices/new" element={<NewInvoicePage />} />
+          <Route path="invoice-app" element={<InvoicesPage />} />
+          <Route path="invoice-app/:id" element={<ViewInvoicePage />} />
+          <Route path="invoice-app/:id/edit" element={<EditInvoicePage />} />
+          <Route path="invoice-app/new" element={<NewInvoicePage />} />
         </Routes>
       </BrowserRouter>
     </div>

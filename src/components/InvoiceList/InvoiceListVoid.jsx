@@ -12,7 +12,7 @@ function InvoiceListVoid() {
             <img src={svg} alt="email-flatline.svg" className={s.email} />
             <h3 className={s.title}>There is nothing here</h3>
             <p className={s.description}>Create an invoice by clicking the</p>
-            <p className={s.description}> <Link to="/invoices/new">New Invoice</Link> button and get started</p>
+            <p className={s.description}> <Link to="/invoice-app/new">New Invoice</Link> button and get started</p>
         </div>
     )
 }

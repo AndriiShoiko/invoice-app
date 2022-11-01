@@ -95,7 +95,7 @@ function NewInvoiceMobile() {
     function getCommandPanel() {
         return (
             <section className={s.commandButtonsNew}>
-                <ButtonEdit type="button" onClick={() => Navigate(`/invoices/`)}>Discard</ButtonEdit>
+                <ButtonEdit type="button" onClick={() => Navigate(`/invoice-app/`)}>Discard</ButtonEdit>
                 <ButtonSave type="button" onClick={saveAsDraftHandler}>Save as Draft</ButtonSave>
                 <ButtonMark type="submit" onClick={() => setValue("status", "Pending")}>Save & Send</ButtonMark>
             </section>
@@ -107,7 +107,7 @@ function NewInvoiceMobile() {
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {
-            navigate(`/invoices/`);
+            navigate(`/invoice-app/`);
         }
     };
 
@@ -117,7 +117,7 @@ function NewInvoiceMobile() {
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {
-            navigate(`/invoices/`);
+            navigate(`/invoice-app/`);
         }
 
     }
@@ -125,7 +125,7 @@ function NewInvoiceMobile() {
     return (
         <div className={!isDarkMode ? s.editInvoiceMobile : s.editInvoiceMobile + " " + s.editInvoiceMobile_dark_mode}>
             <div className={s.wrapper}>
-                <Link to={`/invoices`}>
+                <Link to={`/invoice-app`}>
                     <ButtonGoBack />
                 </Link>
                 {getCaption()}

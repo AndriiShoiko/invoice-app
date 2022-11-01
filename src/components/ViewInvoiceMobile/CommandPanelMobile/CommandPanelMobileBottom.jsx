@@ -13,7 +13,7 @@ export function CommandPanelMobileBottom({ deleteHandler, id, status }) {
     return (
         <div className={!isDarkMode ? s.commandPanelBottom : s.commandPanelBottom + " " + s.commandPanelBottom_dark_mode}>
             <div className={s.bottom_block}>
-                <Link to={`/invoices/${id}/edit`}>
+                <Link to={`/invoice-app/${id}/edit`}>
                     <ButtonEdit>Edit</ButtonEdit>
                 </Link>
                 <ButtonDelete onClick={() => deleteHandler(true)}>Delete</ButtonDelete>
