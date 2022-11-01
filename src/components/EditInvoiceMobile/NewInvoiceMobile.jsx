@@ -103,7 +103,7 @@ function NewInvoiceMobile() {
     }
 
     const onSubmit = (data) => {
-        const dataToSend = convertFormDataToSend(data, true);
+        const dataToSend = convertFormDataToSend(data, true, false);
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {
@@ -113,7 +113,7 @@ function NewInvoiceMobile() {
 
     function saveAsDraftHandler() {
 
-        const dataToSend = convertFormDataToSend(getValues(), true);
+        const dataToSend = convertFormDataToSend(getValues(), true, true);
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {

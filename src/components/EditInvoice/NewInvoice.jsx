@@ -113,7 +113,7 @@ function NewInvoice() {
 
     function onSubmit(data) {
 
-        const dataToSend = convertFormDataToSend(data, true);
+        const dataToSend = convertFormDataToSend(data, true, false);
 
         dispatch(addInvoice(dataToSend));
 
@@ -125,7 +125,7 @@ function NewInvoice() {
 
     function saveAsDraftHandler() {
 
-        const dataToSend = convertFormDataToSend(getValues(), true);
+        const dataToSend = convertFormDataToSend(getValues(), true, true);
         dispatch(addInvoice(dataToSend));
 
         if (!isError) {

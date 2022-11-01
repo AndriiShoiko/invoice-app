@@ -144,7 +144,7 @@ function EditInvoiceMobile({ newInvoice }) {
     }
 
     const onSubmit = (data) => {
-        const dataToSend = convertFormDataToSend(data);
+        const dataToSend = convertFormDataToSend(data, false, false);
         const props = { id, data: dataToSend };
         dispatch(updateInvoiceById(props));
         if(!isError) {

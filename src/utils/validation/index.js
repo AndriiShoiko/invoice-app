@@ -34,7 +34,7 @@ function makeNumber() {
     return text;
 }
 
-export function convertFormDataToSend(formData, newInvoice = false) {
+export function convertFormDataToSend(formData, newInvoice = false, draft) {
 
     let paymentDue = new Date(formData.invoice_date);
     paymentDue = new Date(paymentDue.setDate(paymentDue.getDate() + Number(convertPaymentTermsFromView(formData.payment_terms))));
@@ -47,10 +47,26 @@ export function convertFormDataToSend(formData, newInvoice = false) {
         total += el.total;
     });
 
+
+    let status = formData.status;
+
+    if (newInvoice) {
+        if (draft) {
+            status = "draft";
+        } else {
+            status = "pending";
+        }
+
+    } else {
+        if (status === "draft") {
+            status = "pending";
+        }
+    }
+
     const data = {
         id: formData.id,
         number: newInvoice ? makeNumber() : formData.number,
-        status: formData.status,
+        status: status,
         createdAt: formData.invoice_date,
         paymentDue: paymentDueToStr,
         description: formData.project_description,
@@ -109,7 +125,7 @@ export function getEmptyFormData() {
         invoice_date: getCurrentDate(),
         payment_terms: convertPaymentTermsToView("7"),
         project_description: "",
-        status: "Draft",
+        status: "draft",
         id: ""
     }
 }

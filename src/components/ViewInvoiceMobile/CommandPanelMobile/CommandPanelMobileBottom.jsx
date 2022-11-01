@@ -6,7 +6,7 @@ import ButtonDelete from "../../../UI/Buttons/ButtonDelete/ButtonDelete";
 import { useDarkMode } from "../../../hooks/useDarkMode";
 import { Link } from "react-router-dom";
 
-export function CommandPanelMobileBottom({ deleteHandler, id, status }) {
+export function CommandPanelMobileBottom({ deleteHandler, id, status, markAsPaidHandler }) {
 
     const isDarkMode = useDarkMode();
 
@@ -17,7 +17,7 @@ export function CommandPanelMobileBottom({ deleteHandler, id, status }) {
                     <ButtonEdit>Edit</ButtonEdit>
                 </Link>
                 <ButtonDelete onClick={() => deleteHandler(true)}>Delete</ButtonDelete>
-                {status.toLowerCase() === "pending" && <ButtonMark>Mark as Paid</ButtonMark>}
+                {status.toLowerCase() === "pending" && <ButtonMark onClick={markAsPaidHandler}>Mark as Paid</ButtonMark>}
             </div>
         </div>
     )

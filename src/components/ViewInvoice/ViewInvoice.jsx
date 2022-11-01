@@ -8,7 +8,7 @@ import { useState } from "react";
 import ConfirmDeletionModal from "../ConfirmDeletionModal/ConfirmDeletionModal";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadInvoiceById, invoicesSelectorById, removeInvoice, invoicesIsErrorSelector } from "../../store/slices/invoicesSlice";
+import { loadInvoiceById, invoicesSelectorById, removeInvoice, invoicesIsErrorSelector, updateInvoiceById } from "../../store/slices/invoicesSlice";
 import { formatFieldToDate, formatFieldToSum } from "../../utils/formatting";
 
 function ViewInvoice({ edit }) {
@@ -32,14 +32,22 @@ function ViewInvoice({ edit }) {
     const isError = useSelector(state => invoicesIsErrorSelector(state));
     const navigate = useNavigate();
 
-    if(confirmDelete) {
+    if (confirmDelete) {
         dispatch(removeInvoice(id));
-        if(!isError) {
+        if (!isError) {
             navigate(`/invoice-app`);
         }
     }
 
     const dataInvoice = useSelector(state => invoicesSelectorById(state, id));
+
+    function markAsPaidHandler() {
+
+        let dataToSend = { ...dataInvoice };
+        dataToSend.status = "paid";
+
+        dispatch(updateInvoiceById({ id, data: dataToSend }));
+    }
 
     if (!dataInvoice || confirmDelete) {
         return null;
@@ -50,7 +58,7 @@ function ViewInvoice({ edit }) {
             <Link to="/invoice-app">
                 <ButtonGoBack />
             </Link>
-            <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} status={dataInvoice.status} />
+            <CommandPanel editHandler={setViewActive} deleteHandler={setdeleteActive} markAsPaidHandler={markAsPaidHandler} status={dataInvoice.status} />
             <EditInvoice active={viewActive} setActive={setViewActive} id={id} />
             <ConfirmDeletionModal active={deleteActive} setActive={setdeleteActive} setConfirmDelete={setConfirmDelete} />
 

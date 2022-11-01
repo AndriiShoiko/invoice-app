@@ -8,7 +8,7 @@ import { useState } from "react";
 import ConfirmDeletionModal from "../ConfirmDeletionModal/ConfirmDeletionModal";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadInvoiceById, invoicesSelectorById, removeInvoice, invoicesIsErrorSelector } from "../../store/slices/invoicesSlice";
+import { loadInvoiceById, invoicesSelectorById, removeInvoice, invoicesIsErrorSelector, updateInvoiceById } from "../../store/slices/invoicesSlice";
 import { formatFieldToDate, formatFieldToSum } from "../../utils/formatting";
 
 function ViewInvoiceMobile() {
@@ -42,6 +42,14 @@ function ViewInvoiceMobile() {
 
     if (!dataInvoice || confirmDelete) {
         return null;
+    }    
+
+    function markAsPaidHandler() {
+
+        let dataToSend = { ...dataInvoice };
+        dataToSend.status = "paid";
+
+        dispatch(updateInvoiceById({ id, data: dataToSend }));
     }
 
     return (
@@ -119,7 +127,7 @@ function ViewInvoiceMobile() {
 
                 </div>
             </div>
-            <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} status={dataInvoice.status} />
+            <CommandPanelMobileBottom deleteHandler={setdeleteActive} id={id} status={dataInvoice.status} markAsPaidHandler={markAsPaidHandler}/>
         </>
     )
 
